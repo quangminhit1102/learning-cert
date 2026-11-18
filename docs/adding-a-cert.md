@@ -26,15 +26,19 @@ window.LIBRARY = [
   {
     id: "gh300",
     slug: "github-copilot-gh300",
-    code: "GH3",
+    code: "GH-300",
     title: "GitHub Copilot (GH-300)",
     author: "Microsoft",
+    version: "1.0",
     chapters: 8,
     built: true,
     keywords: ["copilot", "ai", "github"]
   }
 ];
 ```
+
+`version` is shown on the library card and drives the per-cert Install / Update controls. Bump it (and
+bump `VERSION` in `sw.js`) whenever you change that certificate's content.
 
 ## 3. Declare the book in `data/book.js`
 

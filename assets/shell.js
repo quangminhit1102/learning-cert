@@ -409,20 +409,57 @@
     if (count) count.textContent = String(LIBRARY.length);
     if (!grid || !LIBRARY) return;
 
+    const INSTALL_KEY = "gt.installed.v1";
+
+    function installState(bk) {
+      const installed = readJSON(INSTALL_KEY, {});
+      const entry = installed[bk.id];
+      const latest = bk.version || "1.0";
+      if (!entry) return { state: "none", latest: latest };
+      if (entry.version !== latest) return { state: "update", latest: latest, current: entry.version };
+      return { state: "installed", latest: latest };
+    }
+
     function card(bk) {
       const pct = GT.bookPct(bk);
       const action = pct > 0 ? "Continue" : "Start";
       const initials = (bk.code || "BK");
+      const info = installState(bk);
+
+      let actions;
+      if (info.state === "none") {
+        actions = '<button class="btn small book-install" type="button" data-id="' + bk.id + '" data-version="' + info.latest + '">Install</button>';
+      } else if (info.state === "update") {
+        actions = '<span class="badge update-badge">Update available</span>' +
+          '<button class="btn small primary book-install" type="button" data-id="' + bk.id + '" data-version="' + info.latest + '">Update</button>';
+      } else {
+        actions = '<span class="badge installed-badge">Installed ✓ · v' + info.latest + "</span>";
+      }
+
       return '<a class="book-card" href="' + bk.slug + '/index.html" data-search="' +
         (bk.title + " " + bk.author + " " + (bk.keywords || []).join(" ")).toLowerCase() + '">' +
         '<span class="book-cover">' + initials + "</span>" +
         '<div class="book-body"><div class="book-title">' + bk.title + "</div>" +
-        '<div class="book-author">' + bk.author + " · " + bk.chapters + " chapters</div>" +
+        '<div class="book-author">' + bk.author + " · " + bk.chapters + " chapters · v" + info.latest + "</div>" +
         '<div class="book-foot"><span>' + pct + '%</span><span class="ch-card-bar"><span style="width:' + pct + '%"></span></span></div>' +
-        '<span class="badge">' + action + (pct > 0 && pct < 100 ? " · " + pct + "%" : "") + "</span></div></a>";
+        '<div class="book-actions"><span class="badge">' + action + (pct > 0 && pct < 100 ? " · " + pct + "%" : "") + "</span>" + actions + "</div></div></a>";
     }
 
-    grid.innerHTML = LIBRARY.map(card).join("");
+    function render() {
+      grid.innerHTML = LIBRARY.map(card).join("");
+      grid.querySelectorAll(".book-install").forEach((btn) => {
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          const data = readJSON(INSTALL_KEY, {});
+          data[btn.dataset.id] = { version: btn.dataset.version, at: new Date().toISOString() };
+          writeJSON(INSTALL_KEY, data);
+          render();
+        });
+      });
+    }
+
+    render();
     if (search) {
       search.addEventListener("input", () => {
         const term = search.value.trim().toLowerCase();
