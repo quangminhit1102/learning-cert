@@ -599,24 +599,33 @@
     modal.innerHTML =
       '<div class="modal-backdrop" data-close="1"></div>' +
       '<div class="modal-panel" role="dialog" aria-modal="true" aria-label="Settings">' +
-      '<div class="modal-head"><strong>Settings</strong><button class="btn ghost small" type="button" data-close="1">Close</button></div>' +
+      '<div class="modal-head"><strong>Settings</strong><button class="btn ghost small" type="button" data-close="1">✕</button></div>' +
       '<div class="modal-body">' +
-      '<h3>Sync progress</h3>' +
+      '<div class="modal-section">' +
+      '<div class="modal-title">Account &amp; sync</div>' +
       '<p class="read-note" id="sync-account" hidden></p>' +
       '<p class="read-note" id="sync-status"></p>' +
       '<div class="quiz-foot">' +
-      '<button class="btn primary" id="sync-signin" type="button" hidden></button>' +
+      '<button class="btn google-btn" id="sync-signin" type="button" hidden></button>' +
       '<button class="btn" id="sync-now" type="button" hidden></button>' +
       '<button class="btn" id="sync-signout" type="button" hidden></button>' +
       "</div>" +
-      '<h3>Backup (manual)</h3>' +
-      '<p class="read-note">Export or import a file. Progress is merged, never overwritten.</p>' +
+      "</div>" +
+      '<div class="modal-section">' +
+      '<div class="modal-title">Install app</div>' +
+      '<button class="btn primary" id="install-app" type="button" hidden>Install app</button>' +
+      '<p class="read-note" id="install-hint" hidden></p>' +
+      "</div>" +
+      '<div class="modal-section">' +
+      '<div class="modal-title">Backup</div>' +
+      '<p class="read-note">Export a file to move progress to another device, or import to restore it. Progress is merged, never overwritten.</p>' +
       '<div class="quiz-foot">' +
       '<button class="btn" id="export-progress" type="button">Export</button>' +
       '<button class="btn" id="import-progress" type="button">Import</button>' +
       '<input id="import-file" type="file" accept="application/json,.json" hidden>' +
       "</div>" +
-      '<p class="read-note" id="sync-note" hidden></p>' +
+      '<p class="read-note sync-feedback" id="sync-note" hidden></p>' +
+      "</div>" +
       "</div></div>";
     document.body.appendChild(modal);
 
