@@ -2,7 +2,7 @@ window.LIBRARY = [
   {
     id: "gh300",
     slug: "github-copilot-gh300",
-    code: "GH3",
+    code: "GH-300",
     title: "GitHub Copilot (GH-300)",
     author: "Microsoft",
     chapters: 8,

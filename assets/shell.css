@@ -115,7 +115,7 @@ a { color: inherit; }
 
 .nav-item {
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 10px;
   align-items: start;
   padding: 9px 10px;
@@ -135,6 +135,8 @@ a { color: inherit; }
   font-size: 11.5px;
   font-variant-numeric: tabular-nums;
   padding-top: 2px;
+  min-width: 26px;
+  white-space: nowrap;
   color: var(--accent);
   font-weight: 700;
 }
@@ -837,8 +839,10 @@ td code, p code, li code {
   background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 88%, #fff), var(--accent));
   color: var(--accent-ink);
   font-weight: 800;
-  letter-spacing: 0.04em;
-  font-size: 17px;
+  letter-spacing: 0.02em;
+  font-size: 14px;
+  text-align: center;
+  overflow-wrap: break-word;
   box-shadow: inset 0 0 0 1px #0002;
 }
 

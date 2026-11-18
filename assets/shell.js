@@ -227,7 +227,7 @@
     const html = [];
     if (BOOK) {
       html.push('<a class="brand" href="' + bookHomeHref() + '">');
-      html.push('<span class="brand-mark">GT</span>');
+      html.push('<span class="brand-mark">CERT</span>');
       html.push('<span class="brand-name">' + (BOOK.shortTitle || BOOK.title) + '<span class="brand-sub">' + BOOK.author + " · study notes</span></span>");
       html.push("</a>");
       html.push('<div class="nav-label">' + BOOK.chapters.length + " chapters</div>");
@@ -256,7 +256,7 @@
       html.push("</a>");
     } else if (LIBRARY) {
       html.push('<a class="brand" href="index.html">');
-      html.push('<span class="brand-mark">Cert</span>');
+      html.push('<span class="brand-mark">CERT</span>');
       html.push('<span class="brand-name">Certification Library<span class="brand-sub">Offline exam prep</span></span>');
       html.push("</a>");
       html.push('<div class="nav-label">' + LIBRARY.length + " certs</div>");
