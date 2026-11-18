@@ -1,4 +1,4 @@
-const VERSION = "2026-11-18-7";
+const VERSION = "2026-11-18-8";
 const CACHE = "lc-static-" + VERSION;
 const BOOK = "github-copilot-gh300/";
 const CHAPTERS = [
@@ -24,6 +24,8 @@ const PRECACHE = [
   "assets/diagrams.js",
   "assets/mock.js",
   "assets/pwa.js",
+  "assets/firebase-config.js",
+  "assets/sync.js",
   "assets/favicon.svg",
   "assets/icons/icon-192.png",
   "assets/icons/icon-512.png",
