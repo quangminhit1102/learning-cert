@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chương 3 · Copilot trong IDE — GH-300</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/shell.css">
+</head>
+<body data-page="chapter" data-book="gh300" data-chapter="ch03" data-data="CH03" data-root="../.." data-book-root="..">
+  <div class="backdrop"></div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
+        <span class="crumb">Chương 03 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+      </header>
+
+      <article class="chapter">
+        <div class="eyebrow">Chương 03 <span>Copilot in the IDE</span></div>
+        <h1>Copilot trong IDE</h1>
+        <p class="lead">Copilot hoạt động trong VS Code, Visual Studio, JetBrains, Xcode và Eclipse. Biết cách
+          kích hoạt và gọi đúng tính năng (inline, chat, agent mode) là phần lớn nhất của đề thi.</p>
+
+        <div class="big-picture">
+          <div class="eyebrow">Bức tranh lớn</div>
+          <p>Ba cách tương tác chính trong IDE: gợi ý inline khi gõ, hội thoại trong Chat, và giao task cho
+            agent mode tự thao tác nhiều bước.</p>
+        </div>
+
+        <section>
+          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <ol class="recall">
+            <li><details><summary>Copilot chạy trên những IDE nào?</summary>
+              <p>VS Code, Visual Studio, JetBrains, Xcode, Eclipse.</p></details></li>
+            <li><details><summary>Bốn cách kích hoạt Copilot trong IDE?</summary>
+              <p>Inline suggestions, Chat, CLI, và Agent mode.</p></details></li>
+            <li><details><summary>Inline suggestions gồm gì?</summary>
+              <p>Code completions theo thời gian thực và Next edit suggestions.</p></details></li>
+            <li><details><summary>Slash command dùng để làm gì?</summary>
+              <p>Gọi hành động nhanh trong Chat như /fix, /tests, /explain.</p></details></li>
+            <li><details><summary>Content exclusions để làm gì?</summary>
+              <p>Chặn Copilot truy cập các file/repo cụ thể bạn không muốn nó đọc.</p></details></li>
+          </ol>
+        </section>
+
+        <section id="ghi-chu-enable">
+          <h2><span class="kicker">Ghi chú</span>Bật Copilot trong IDE</h2>
+          <p>Copilot được cung cấp qua extension/plugin của từng IDE. Sau khi cài, bạn <strong>đăng nhập bằng tài
+            khoản GitHub</strong> có quyền dùng Copilot (gói cá nhân, hoặc seat do tổ chức cấp). Với thành viên tổ
+            chức, admin phải gán seat trước.</p>
+          <p>Các thành phần thường cần bật: <em class="term">inline suggestions</em> (completions), Copilot Chat,
+            và (tùy gói) Agent mode. Chính sách của tổ chức có thể tắt/bật từng tính năng.</p>
+        </section>
+
+        <section id="ghi-chu-trigger">
+          <h2><span class="kicker">Ghi chú</span>Các cách kích hoạt</h2>
+          <table>
+            <thead><tr><th>Cách</th><th>Mô tả</th></tr></thead>
+            <tbody>
+              <tr><td>Inline suggestions</td><td>Gợi ý code ngay khi gõ; gồm code completions và Next edit suggestions (gợi ý sửa tiếp theo).</td></tr>
+              <tr><td>Copilot Chat</td><td>Hội thoại hỏi/đáp, giải thích, viết code theo yêu cầu; có inline chat ngay trong editor.</td></tr>
+              <tr><td>CLI</td><td>Dùng Copilot từ terminal (cài <code>gh copilot</code>).</td></tr>
+              <tr><td>Agent mode</td><td>Đưa mục tiêu, agent tự tìm file, sửa code, chạy lệnh nhiều bước rồi báo cáo để bạn duyệt.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="ghi-chu-chat">
+          <h2><span class="kicker">Ghi chú</span>Copilot Chat trong IDE</h2>
+          <p>Chat cho phép hỏi về code hiện tại, yêu cầu sửa/refactor, sinh test. Các công cụ nâng cao:</p>
+          <ul>
+            <li><strong>Slash commands</strong> — hành động nhanh: <code>/fix</code>, <code>/tests</code>,
+              <code>/explain</code>, <code>/doc</code>.</li>
+            <li><strong>Inline chat</strong> — gõ lệnh ngay trong file, không rời editor.</li>
+            <li><strong>Gắn ngữ cảnh</strong> — dùng <code>@</code> để gắn file, symbol; <code>#</code> để gắn issue/PR.</li>
+            <li><strong>Copilot Chat skills</strong> — (không có ở gói Free) cho phép mở rộng khả năng chat.</li>
+          </ul>
+          <div class="callout">Nhớ mở đúng file để Copilot dùng chúng làm ngữ cảnh; đóng các file không liên quan
+            để gợi ý chuẩn hơn.</div>
+        </section>
+
+        <section>
+          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <ul class="drills">
+            <li><b>1. Bật &amp; đăng nhập</b>Cài extension Copilot cho IDE của bạn, đăng nhập GitHub, xác nhận inline suggestions chạy.</li>
+            <li><b>2. Gọi inline</b>Gõ comment mô tả hàm rồi để Copilot sinh code; thử Next edit suggestions.</li>
+            <li><b>3. Dùng chat + slash</b>Chọn một hàm, mở Chat, chạy <code>/explain</code> rồi <code>/tests</code>.</li>
+            <li><b>4. Thử agent mode</b>Nêu một task nhỏ, xem agent tự tìm file và sửa, rồi review từng thay đổi.</li>
+          </ul>
+        </section>
+
+        <section id="cheat-sheet" class="cheatsheet">
+          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <div class="cheat-grid">
+            <div>
+              <h3>IDE hỗ trợ</h3>
+              <ul class="cheat-list">
+                <li>VS Code</li>
+                <li>Visual Studio</li>
+                <li>JetBrains</li>
+                <li>Xcode · Eclipse</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Cách kích hoạt</h3>
+              <ul class="cheat-list">
+                <li>Inline (completions + Next edit)</li>
+                <li>Chat (panel + inline)</li>
+                <li>CLI</li>
+                <li>Agent mode</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Chat</h3>
+              <ul class="cheat-list">
+                <li>/fix · /tests · /explain · /doc</li>
+                <li>@ gắn file · # gắn issue/PR</li>
+                <li>Skills (không có ở Free)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="extend">
+          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <ul>
+            <li>Phân biệt rõ: inline = gợi ý tức thời, chat = hội thoại, agent = tự làm nhiều bước.</li>
+            <li>"Next edit suggestions" là khái niệm mới — dễ xuất hiện trong câu hỏi inline.</li>
+          </ul>
+        </section>
+
+        <div class="mark-read" style="margin-top:32px">
+          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
+          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+        </div>
+
+        <section class="quiz panel" id="quiz" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Câu 1</span>
+          </div>
+          <div id="quiz-body"></div>
+        </section>
+
+        <section class="cards" id="flashcards" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <span class="badge" id="cards-meta">1/14</span>
+          </div>
+          <div class="panel" id="cards-body"></div>
+        </section>
+
+        <nav class="pager">
+          <a href="ch02-responsible.html"><span>Chương trước</span><strong>2 · Dùng có trách nhiệm</strong></a>
+          <a class="next" href="ch04-cli-advanced.html"><span>Chương tiếp</span><strong>4 · CLI &amp; nâng cao</strong></a>
+        </nav>
+      </article>
+    </div>
+  </div>
+
+  <script src="../data/book.js"></script>
+  <script src="../data/ch03.js"></script>
+  <script src="../../assets/shell.js"></script>
+  <script src="../../assets/quiz.js"></script>
+  <script src="../../assets/cards.js"></script>
+  <script src="../../assets/pwa.js"></script>
+</body>
+</html>

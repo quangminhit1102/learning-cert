@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chương 8 · Privacy, Exclusions &amp; Safeguards — GH-300</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/shell.css">
+</head>
+<body data-page="chapter" data-book="gh300" data-chapter="ch08" data-data="CH08" data-root="../.." data-book-root="..">
+  <div class="backdrop"></div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
+        <span class="crumb">Chương 08 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+      </header>
+
+      <article class="chapter">
+        <div class="eyebrow">Chương 08 <span>Privacy, Exclusions &amp; Safeguards</span></div>
+        <h1>Quyền riêng tư và biện pháp an toàn</h1>
+        <p class="lead">Kiểm soát những gì Copilot được phép đọc, bộ lọc code trùng public, và cách xử lý khi gợi ý
+          hoặc exclusion không như mong đợi.</p>
+
+        <div class="big-picture">
+          <div class="eyebrow">Bức tranh lớn</div>
+          <p>Bạn quyết định Copilot thấy gì (content exclusions) và nhận gì (public code filter). Hai lớp này là
+            hàng rào bảo vệ dữ liệu và bản quyền.</p>
+        </div>
+
+        <section>
+          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <ol class="recall">
+            <li><details><summary>Content exclusions có ở những cấp nào?</summary>
+              <p>Cấp repository (settings) và cấp organization (enterprise).</p></details></li>
+            <li><details><summary>File nào loại trừ nội dung trong repo?</summary>
+              <p><code>.copilotignore</code> — hoạt động tương tự <code>.gitignore</code>.</p></details></li>
+            <li><details><summary>Public code filter để làm gì?</summary>
+              <p>Chặn gợi ý trùng khớp code công khai (suggestions matching public code).</p></details></li>
+            <li><details><summary>Ai sở hữu code bạn viết với Copilot?</summary>
+              <p>Bạn sở hữu code mình viết; nhưng cần chú ý code có thể trùng public và vấn đề license.</p></details></li>
+            <li><details><summary>Khi exclusion/gợi ý hoạt động sai?</summary>
+              <p>Kiểm tra lại cấu hình, phạm vi exclusion, và troubleshoot theo hướng dẫn của GitHub.</p></details></li>
+          </ol>
+        </section>
+
+        <section id="ghi-chu-exclusions">
+          <h2><span class="kicker">Ghi chú</span>Content exclusions</h2>
+          <p>Content exclusions ngăn Copilot truy cập nội dung nhạy cảm. Có thể cấu hình:</p>
+          <ul>
+            <li><strong>Repository-level</strong> — trong Settings của repo.</li>
+            <li><strong>Organization-level</strong> — admin đặt rule cho toàn tổ chức (enterprise).</li>
+            <li><strong><code>.copilotignore</code></strong> — file trong repo liệt kê đường dẫn cần loại trừ.</li>
+          </ul>
+          <p>Ngoài ra có thể chỉnh <em class="term">editor settings</em> để kiểm soát hành vi Copilot trong IDE.</p>
+        </section>
+
+        <section id="ghi-chu-ownership">
+          <h2><span class="kicker">Ghi chú</span>Sở hữu và giới hạn đầu ra</h2>
+          <p>Bạn sở hữu code do mình viết (kể cả có Copilot trợ giúp). Tuy nhiên, gợi ý có thể <strong>trùng code
+            công khai</strong> — khi đó cần xem xét license trước khi dùng. Copilot không đảm bảo code không vi phạm
+            bản quyền.</p>
+        </section>
+
+        <section id="ghi-chu-public-code">
+          <h2><span class="kicker">Ghi chú</span>Bộ lọc code trùng public</h2>
+          <p>Tính năng <em class="term">suggestions matching public code</em> chặn những gợi ý trùng khớp code công
+            khai. Khi bật, Copilot không hiển thị gợi ý khớp với public code (kèm tham chiếu nguồn). Cấu hình trong
+            Settings của Copilot.</p>
+        </section>
+
+        <section id="ghi-chu-troubleshoot">
+          <h2><span class="kicker">Ghi chú</span>Xử lý sự cố</h2>
+          <ul>
+            <li>Gợi ý vẫn xuất hiện từ file đã loại trừ → kiểm tra đường dẫn/pattern trong exclusion và <code>.copilotignore</code>.</li>
+            <li>Không nhận gợi ý → xác nhận đã bật inline suggestions và đăng nhập đúng tài khoản có seat.</li>
+            <li>Exclusion cấp org chưa có hiệu lực → kiểm tra policy admin và audit log các thay đổi.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <ul class="drills">
+            <li><b>1. Tạo .copilotignore</b>Thêm một file nhạy cảm vào <code>.copilotignore</code>, xác nhận Copilot không dùng nó.</li>
+            <li><b>2. Bật public code filter</b>Vào Copilot Settings, bật "Suggestions matching public code".</li>
+            <li><b>3. Kiểm tra exclusion</b>Đặt exclusion cho một thư mục, hỏi Copilot nội dung trong đó.</li>
+            <li><b>4. Đọc ownership</b>Xem lại mục license của code Copilot gợi ý trước khi dùng vào dự án.</li>
+          </ul>
+        </section>
+
+        <section id="cheat-sheet" class="cheatsheet">
+          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <div class="cheat-grid">
+            <div>
+              <h3>Exclusions</h3>
+              <ul class="cheat-list">
+                <li>Repo settings</li>
+                <li>Org (enterprise)</li>
+                <li>.copilotignore</li>
+                <li>Editor settings</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Safeguards</h3>
+              <ul class="cheat-list">
+                <li>Public code matching filter</li>
+                <li>Bạn sở hữu code mình viết</li>
+                <li>Chú ý license code trùng public</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Troubleshoot</h3>
+              <ul class="cheat-list">
+                <li>Kiểm tra pattern exclusion</li>
+                <li>Bật inline suggestions</li>
+                <li>Xem audit log thay đổi</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="extend">
+          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <ul>
+            <li>Nhớ 3 nơi cấu hình exclusion: repo / org / .copilotignore.</li>
+            <li>Phân biệt "public code filter" (bản quyền) với "content exclusions" (bảo mật dữ liệu).</li>
+          </ul>
+        </section>
+
+        <div class="mark-read" style="margin-top:32px">
+          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
+          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+        </div>
+
+        <section class="quiz panel" id="quiz" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Câu 1</span>
+          </div>
+          <div id="quiz-body"></div>
+        </section>
+
+        <section class="cards" id="flashcards" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <span class="badge" id="cards-meta">1/14</span>
+          </div>
+          <div class="panel" id="cards-body"></div>
+        </section>
+
+        <nav class="pager">
+          <a href="ch07-productivity.html"><span>Chương trước</span><strong>7 · Năng suất &amp; bảo mật</strong></a>
+          <a class="next" href="../index.html"><span>Tiếp theo</span><strong>Tổng quan · 8 chương</strong></a>
+        </nav>
+      </article>
+    </div>
+  </div>
+
+  <script src="../data/book.js"></script>
+  <script src="../data/ch08.js"></script>
+  <script src="../../assets/shell.js"></script>
+  <script src="../../assets/quiz.js"></script>
+  <script src="../../assets/cards.js"></script>
+  <script src="../../assets/pwa.js"></script>
+</body>
+</html>

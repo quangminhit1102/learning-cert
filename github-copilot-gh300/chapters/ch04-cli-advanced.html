@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chương 4 · CLI và tính năng nâng cao — GH-300</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/shell.css">
+</head>
+<body data-page="chapter" data-book="gh300" data-chapter="ch04" data-data="CH04" data-root="../.." data-book-root="..">
+  <div class="backdrop"></div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
+        <span class="crumb">Chương 04 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+      </header>
+
+      <article class="chapter">
+        <div class="eyebrow">Chương 04 <span>Copilot CLI &amp; Advanced Features</span></div>
+        <h1>Copilot CLI và tính năng nâng cao</h1>
+        <p class="lead">Phần nặng nhất của đề: CLI, Agent Mode, Copilot Edits, MCP, Spaces, Spark, PR summary,
+          code review và quản trị tổ chức.</p>
+
+        <div class="big-picture">
+          <div class="eyebrow">Bức tranh lớn</div>
+          <p>Copilot mở rộng từ "gợi ý code" thành nền tảng: làm việc trong terminal, tự thao tác nhiều bước,
+            kết nối tool ngoài, và được quản trị tập trung ở cấp tổ chức.</p>
+        </div>
+
+        <section>
+          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <ol class="recall">
+            <li><details><summary>Cài Copilot CLI thế nào?</summary>
+              <p>Cài GitHub CLI, <code>gh auth login</code>, rồi dùng lệnh <code>gh copilot</code>.</p></details></li>
+            <li><details><summary>Hai lệnh CLI cơ bản?</summary>
+              <p><code>gh copilot suggest</code> (đề xuất lệnh) và <code>gh copilot explain</code> (giải thích lệnh).</p></details></li>
+            <li><details><summary>Agent Mode, Copilot Edits, MCP khác nhau ra sao?</summary>
+              <p>Agent Mode tự làm task nhiều bước; Edits chỉnh nhiều file nhanh; MCP kết nối công cụ ngoài.</p></details></li>
+            <li><details><summary>Spaces và Spark là gì?</summary>
+              <p>Spaces chia sẻ code làm ngữ cảnh với Copilot; Spark dựng ứng dụng từ mô tả tự nhiên.</p></details></li>
+            <li><details><summary>Admin tổ chức quản trị gì?</summary>
+              <p>Bật/tắt tính năng (gồm Code Review policy), xem audit log, quản subscription qua REST API.</p></details></li>
+          </ol>
+        </section>
+
+        <section id="ghi-chu-cli">
+          <h2><span class="kicker">Ghi chú</span>GitHub Copilot CLI</h2>
+          <p>Copilot CLI giúp dùng AI ngay trong terminal: gợi ý lệnh, giải thích lệnh, sinh script, thao tác file.
+            Cài bằng GitHub CLI, sau đó đăng nhập bằng <code>gh auth login</code>.</p>
+          <table>
+            <thead><tr><th>Lệnh</th><th>Mục đích</th></tr></thead>
+            <tbody>
+              <tr><td><code>gh copilot</code></td><td>Vào chế độ tương tác/chat</td></tr>
+              <tr><td><code>gh copilot suggest &lt;prompt&gt;</code></td><td>Đề xuất lệnh shell từ mô tả</td></tr>
+              <tr><td><code>gh copilot explain &lt;command&gt;</code></td><td>Giải thích một lệnh shell</td></tr>
+            </tbody>
+          </table>
+          <p>Trong phiên tương tác: gắn file bằng <code>@path</code>, gắn issue/PR bằng <code>#number</code>;
+            có các lệnh như <code>/chat</code>, <code>/undo</code>, <code>/rewind</code>, và quản lý sessions.</p>
+        </section>
+
+        <section id="ghi-chu-agent">
+          <h2><span class="kicker">Ghi chú</span>Agent Mode, Copilot Edits và MCP</h2>
+          <ul>
+            <li><strong>Agent Mode</strong> — Copilot tự đề xuất và thực hiện nhiều bước (tìm file, sửa, chạy lệnh);
+              bạn quản lý <em class="term">Agent Sessions</em> và ủy task cho <em class="term">Sub-Agents</em> để tối ưu ngữ cảnh.</li>
+            <li><strong>Copilot Edits</strong> — sửa nhanh nhiều file trong một lượt chỉnh sửa, xem trước diff rồi chấp nhận/từ chối.</li>
+            <li><strong>MCP (Model Context Protocol)</strong> — kết nối Copilot với các server/công cụ ngoài để mở rộng khả năng.</li>
+          </ul>
+        </section>
+
+        <section id="ghi-chu-features">
+          <h2><span class="kicker">Ghi chú</span>Code review, Spaces, Spark và PR summary</h2>
+          <ul>
+            <li><strong>Copilot code review</strong> — Copilot rà soát code/PR, gợi ý cải tiến; có thể cá nhân hóa
+              chuẩn review bằng <em class="term">instructions files</em>.</li>
+            <li><strong>PR summaries</strong> — tự tóm tắt thay đổi trong pull request.</li>
+            <li><strong>Spaces</strong> — không gian chia sẻ code để Copilot dùng làm ngữ cảnh.</li>
+            <li><strong>Spark</strong> — sinh ứng dụng từ mô tả ngôn ngữ tự nhiên.</li>
+            <li><strong>Prompt files</strong> — lưu prompt để tái sử dụng cho phản hồi nhất quán.</li>
+          </ul>
+        </section>
+
+        <section id="ghi-chu-org">
+          <h2><span class="kicker">Ghi chú</span>Quản trị cấp tổ chức</h2>
+          <p>Admin có thể: quản lý <em class="term">policy</em> toàn tổ chức, bật <em class="term">Copilot Code
+            Review policies</em>, bật/tắt tính năng trên các IDE và github.com, xem <em class="term">audit log
+            events</em>, và quản lý subscription (seat) bằng <em class="term">REST API</em>.</p>
+        </section>
+
+        <section>
+          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <ul class="drills">
+            <li><b>1. Cài CLI</b>Cài gh CLI, <code>gh auth login</code>, chạy <code>gh copilot suggest "list files by size"</code>.</li>
+            <li><b>2. Giải thích lệnh</b>Dùng <code>gh copilot explain "git rebase -i HEAD~3"</code>.</li>
+            <li><b>3. Thử Edits</b>Mở VS Code, dùng Copilot Edits để đổi tên một hàm ở nhiều file.</li>
+            <li><b>4. Đọc audit log</b>Nếu là admin org, xem audit log Copilot và policy hiện có.</li>
+          </ul>
+        </section>
+
+        <section id="cheat-sheet" class="cheatsheet">
+          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <div class="cheat-grid">
+            <div>
+              <h3>CLI</h3>
+              <ul class="cheat-list">
+                <li>gh auth login</li>
+                <li>gh copilot</li>
+                <li>suggest · explain</li>
+                <li>@file · #issue · /undo · /rewind</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Tính năng nâng cao</h3>
+              <ul class="cheat-list">
+                <li>Agent Mode + Sub-Agents</li>
+                <li>Copilot Edits</li>
+                <li>MCP servers</li>
+                <li>Spaces · Spark</li>
+                <li>Code review · PR summary</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Quản trị</h3>
+              <ul class="cheat-list">
+                <li>Org policy</li>
+                <li>Code Review policies</li>
+                <li>Audit log events</li>
+                <li>REST API subscription</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="extend">
+          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <ul>
+            <li>Ghi nhớ từng tên riêng: Agent Mode, Copilot Edits, MCP, Spaces, Spark — câu hỏi hay hỏi "tính năng nào làm gì".</li>
+            <li>CLI lệnh chính xác: suggest vs explain; đừng nhầm với gh auth.</li>
+          </ul>
+        </section>
+
+        <div class="mark-read" style="margin-top:32px">
+          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
+          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+        </div>
+
+        <section class="quiz panel" id="quiz" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Câu 1</span>
+          </div>
+          <div id="quiz-body"></div>
+        </section>
+
+        <section class="cards" id="flashcards" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <span class="badge" id="cards-meta">1/14</span>
+          </div>
+          <div class="panel" id="cards-body"></div>
+        </section>
+
+        <nav class="pager">
+          <a href="ch03-ide.html"><span>Chương trước</span><strong>3 · Copilot trong IDE</strong></a>
+          <a class="next" href="ch05-data-architecture.html"><span>Chương tiếp</span><strong>5 · Dữ liệu &amp; kiến trúc</strong></a>
+        </nav>
+      </article>
+    </div>
+  </div>
+
+  <script src="../data/book.js"></script>
+  <script src="../data/ch04.js"></script>
+  <script src="../../assets/shell.js"></script>
+  <script src="../../assets/quiz.js"></script>
+  <script src="../../assets/cards.js"></script>
+  <script src="../../assets/pwa.js"></script>
+</body>
+</html>

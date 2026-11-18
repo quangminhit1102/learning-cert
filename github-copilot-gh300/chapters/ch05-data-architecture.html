@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chương 5 · Dữ liệu và kiến trúc — GH-300</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/shell.css">
+</head>
+<body data-page="chapter" data-book="gh300" data-chapter="ch05" data-data="CH05" data-root="../.." data-book-root="..">
+  <div class="backdrop"></div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
+        <span class="crumb">Chương 05 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+      </header>
+
+      <article class="chapter">
+        <div class="eyebrow">Chương 05 <span>Data &amp; Architecture</span></div>
+        <h1>Dữ liệu và kiến trúc</h1>
+        <p class="lead">Hiểu Copilot xử lý dữ liệu ra sao: từ khi bạn gõ đến khi gợi ý hiện ra, và các giới hạn
+          của mô hình ngôn ngữ.</p>
+
+        <div class="big-picture">
+          <div class="eyebrow">Bức tranh lớn</div>
+          <p>Copilot = ngữ cảnh của bạn (prompt + code + file mở) → xây prompt → gửi model → xử lý kết quả →
+            hiển thị gợi ý. Chất lượng phụ thuộc cả ngữ cảnh lẫn giới hạn của LLM.</p>
+        </div>
+
+        <section>
+          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <ol class="recall">
+            <li><details><summary>Copilot dùng gì để xây prompt?</summary>
+              <p>Prompt của bạn + ngữ cảnh (code hiện tại, file đang mở, lịch sử chat).</p></details></li>
+            <li><details><summary>Vòng đời một gợi ý code?</summary>
+              <p>Gõ → thu thập ngữ cảnh → xây prompt → gửi model → phản hồi → post-processing → hiển thị.</p></details></li>
+            <li><details><summary>Proxy filtering và post-processing để làm gì?</summary>
+              <p>Áp content exclusions trước khi gửi; lọc kết quả (như trùng public code) trước khi hiển thị.</p></details></li>
+            <li><details><summary>Khác biệt dữ liệu giữa gói cá nhân và Business/Enterprise?</summary>
+              <p>Business/Enterprise không dùng dữ liệu để huấn luyện; gói cá nhân có thể dùng telemetry trừ khi tắt.</p></details></li>
+            <li><details><summary>Giới hạn chính của LLM?</summary>
+              <p>Giới hạn cửa sổ ngữ cảnh, không tất định, có thể sai hoặc tạo code không an toàn.</p></details></li>
+          </ol>
+        </section>
+
+        <section id="ghi-chu-data-flow">
+          <h2><span class="kicker">Ghi chú</span>Luồng và cách dùng dữ liệu</h2>
+          <p>Khi bạn dùng Copilot, dữ liệu gửi đi gồm <strong>prompt</strong> và <strong>ngữ cảnh</strong> xung
+            quanh (đoạn code, file mở). Kết quả trả về được hiển thị cho bạn; việc dữ liệu có được giữ lại hay
+            dùng để cải tiến sản phẩm tùy gói:</p>
+          <ul>
+            <li><strong>Copilot Business / Enterprise</strong> — prompt và suggestions <em>không</em> được dùng để huấn luyện mô hình.</li>
+            <li><strong>Copilot Free / Pro (Individual)</strong> — GitHub có thể dùng telemetry/đoạn code để cải tiến sản phẩm, trừ khi bạn tắt tùy chọn.</li>
+          </ul>
+        </section>
+
+        <section id="ghi-chu-prompt">
+          <h2><span class="kicker">Ghi chú</span>Xử lý input và xây prompt</h2>
+          <p>Quá trình <em class="term">input processing</em>: Copilot ghép prompt của bạn với ngữ cảnh được chọn
+            (code hiện tại, file mở, lịch sử hội thoại) thành một prompt đầy đủ gửi tới model. <em class="term">Proxy
+            filtering</em> áp dụng các rule (như content exclusions) trước khi dữ liệu rời máy; <em class="term">post-processing</em>
+            lọc/điều chỉnh kết quả (ví dụ bỏ gợi ý trùng code public) trước khi hiển thị.</p>
+        </section>
+
+        <section id="ghi-chu-lifecycle">
+          <h2><span class="kicker">Ghi chú</span>Vòng đời gợi ý code</h2>
+          <ol>
+            <li>Bạn gõ code hoặc yêu cầu.</li>
+            <li>Copilot thu thập ngữ cảnh.</li>
+            <li>Prompt được xây dựng.</li>
+            <li>Model sinh phản hồi.</li>
+            <li>Post-processing (lọc, chặn trùng public).</li>
+            <li>Gợi ý hiển thị; bạn chấp nhận hoặc bỏ.</li>
+          </ol>
+        </section>
+
+        <section id="ghi-chu-limitations">
+          <h2><span class="kicker">Ghi chú</span>Giới hạn của LLM và Copilot</h2>
+          <ul>
+            <li><strong>Cửa sổ ngữ cảnh giới hạn</strong> — model chỉ "nhìn" được một lượng dữ liệu nhất định; ngữ cảnh thừa có thể bị bỏ.</li>
+            <li><strong>Không tất định</strong> — cùng prompt có thể cho kết quả khác nhau.</li>
+            <li><strong>Có thể sai</strong> — sinh code lỗi logic hoặc API không tồn tại.</li>
+            <li><strong>Không đảm bảo bảo mật</strong> — code sinh ra có thể chứa lỗ hổng.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <ul class="drills">
+            <li><b>1. Quan sát ngữ cảnh</b>Mở 3 file liên quan, hỏi Copilot về một hàm; rồi đóng 2 file, hỏi lại và so sánh.</li>
+            <li><b>2. Kiểm tra tính không tất định</b>Gửi cùng một prompt 2 lần, so sánh kết quả.</li>
+            <li><b>3. Thử lọc</b>Đặt một file vào content exclusion, xác nhận Copilot không gợi ý dựa trên nó.</li>
+            <li><b>4. Ghi nhớ vòng đời</b>Tự vẽ lại 6 bước vòng đời gợi ý ra giấy.</li>
+          </ul>
+        </section>
+
+        <section id="cheat-sheet" class="cheatsheet">
+          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <div class="cheat-grid">
+            <div>
+              <h3>Luồng dữ liệu</h3>
+              <ul class="cheat-list">
+                <li>Prompt + ngữ cảnh → model</li>
+                <li>Proxy filtering trước khi gửi</li>
+                <li>Post-processing kết quả</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Dữ liệu theo gói</h3>
+              <ul class="cheat-list">
+                <li>Business/Enterprise: không huấn luyện</li>
+                <li>Free/Pro: có thể dùng telemetry (tắt được)</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Giới hạn LLM</h3>
+              <ul class="cheat-list">
+                <li>Context window</li>
+                <li>Không tất định</li>
+                <li>Có thể sai / không an toàn</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="extend">
+          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <ul>
+            <li>Câu hỏi thường so sánh "individual vs business" về dữ liệu — học thuộc cặp tương phản đó.</li>
+            <li>Nhớ thứ tự vòng đời để trả lời câu "điều gì xảy ra trước/sau".</li>
+          </ul>
+        </section>
+
+        <div class="mark-read" style="margin-top:32px">
+          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
+          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+        </div>
+
+        <section class="quiz panel" id="quiz" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Câu 1</span>
+          </div>
+          <div id="quiz-body"></div>
+        </section>
+
+        <section class="cards" id="flashcards" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <span class="badge" id="cards-meta">1/14</span>
+          </div>
+          <div class="panel" id="cards-body"></div>
+        </section>
+
+        <nav class="pager">
+          <a href="ch04-cli-advanced.html"><span>Chương trước</span><strong>4 · CLI &amp; nâng cao</strong></a>
+          <a class="next" href="ch06-prompt-engineering.html"><span>Chương tiếp</span><strong>6 · Prompt engineering</strong></a>
+        </nav>
+      </article>
+    </div>
+  </div>
+
+  <script src="../data/book.js"></script>
+  <script src="../data/ch05.js"></script>
+  <script src="../../assets/shell.js"></script>
+  <script src="../../assets/quiz.js"></script>
+  <script src="../../assets/cards.js"></script>
+  <script src="../../assets/pwa.js"></script>
+</body>
+</html>

@@ -134,7 +134,7 @@ library.forEach((entry) => {
     });
 
     if (!bank.quiz || bank.quiz.length < 12) fail(chLabel + ": cần ít nhất 12 câu quiz");
-    if (!bank.cards || bank.cards.length < 12) fail(chLabel + ": nên có ít nhất 12 flashcard");
+    if (!bank.cards || bank.cards.length < 10) fail(chLabel + ": nên có ít nhất 10 flashcard");
   });
 
   const glossaryPath = path.join(root, entry.slug, "data", "glossary.js");

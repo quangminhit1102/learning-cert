@@ -88,6 +88,7 @@
   const total = deck.length;
 
   function renderList() {
+    document.getElementById("mock-meta").textContent = deck.length + " câu";
     host.innerHTML = '<div class="wrong-head"><h2>Câu đã sai</h2><span class="badge">' + deck.length + " câu</span>" +
       '<button class="btn primary" type="button" id="wrong-retry">Ôn lại các câu sai</button></div>' +
       '<div class="wrong-list">' + deck.map((item, i) => {
@@ -147,6 +148,15 @@
       check.addEventListener("click", () => markAnswer(isCorrect(q, fillInput.value), q));
       fillInput.addEventListener("keydown", (ev) => { if (ev.key === "Enter") markAnswer(isCorrect(q, fillInput.value), q); });
       fillInput.focus();
+    }
+
+    const nextBtn = document.getElementById("q-next");
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        index += 1;
+        if (index < total) renderQuestion();
+        else renderResult();
+      });
     }
   }
 

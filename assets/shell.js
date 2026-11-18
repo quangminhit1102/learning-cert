@@ -241,12 +241,14 @@
         html.push('<span class="nav-title">' + ch.vi + '<span class="nav-bar"><span style="width:' + pct + '%"></span></span></span>');
         html.push("</a>");
       });
-      html.push('<div class="nav-label">Tham khảo</div>');
-      const glossaryClass = page === "glossary" ? "nav-item active" : "nav-item";
-      html.push('<a class="' + glossaryClass + '" href="' + glossaryHref() + '">');
-      html.push('<span class="nav-num">A–Z</span>');
-      html.push('<span class="nav-title">Tra cứu thuật ngữ</span>');
-      html.push("</a>");
+      if (BOOK.hasGlossary !== false) {
+        html.push('<div class="nav-label">Tham khảo</div>');
+        const glossaryClass = page === "glossary" ? "nav-item active" : "nav-item";
+        html.push('<a class="' + glossaryClass + '" href="' + glossaryHref() + '">');
+        html.push('<span class="nav-num">A–Z</span>');
+        html.push('<span class="nav-title">Tra cứu thuật ngữ</span>');
+        html.push("</a>");
+      }
       html.push('<div class="nav-label">Thư viện</div>');
       html.push('<a class="nav-item" href="' + libraryHref() + '">');
       html.push('<span class="nav-num">↩</span>');

@@ -1,5 +1,16 @@
-const VERSION = "2026-11-07-1";
+const VERSION = "2026-11-18-1";
 const CACHE = "lc-static-" + VERSION;
+const BOOK = "github-copilot-gh300/";
+const CHAPTERS = [
+  "ch01-overview.html",
+  "ch02-responsible.html",
+  "ch03-ide.html",
+  "ch04-cli-advanced.html",
+  "ch05-data-architecture.html",
+  "ch06-prompt-engineering.html",
+  "ch07-productivity.html",
+  "ch08-privacy.html"
+];
 
 const PRECACHE = [
   "./",
@@ -16,8 +27,14 @@ const PRECACHE = [
   "assets/favicon.svg",
   "assets/icons/icon-192.png",
   "assets/icons/icon-512.png",
-  "assets/data/library.js"
-];
+  "assets/data/library.js",
+  BOOK + "index.html",
+  BOOK + "mock.html",
+  BOOK + "wrong.html",
+  BOOK + "data/book.js"
+]
+  .concat(CHAPTERS.map((file) => BOOK + "chapters/" + file))
+  .concat(CHAPTERS.map((file, i) => BOOK + "data/ch" + String(i + 1).padStart(2, "0") + ".js"));
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

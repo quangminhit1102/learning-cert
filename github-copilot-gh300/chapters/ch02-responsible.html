@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chương 2 · Dùng Copilot có trách nhiệm — GH-300</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/shell.css">
+</head>
+<body data-page="chapter" data-book="gh300" data-chapter="ch02" data-data="CH02" data-root="../.." data-book-root="..">
+  <div class="backdrop"></div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
+        <span class="crumb">Chương 02 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+      </header>
+
+      <article class="chapter">
+        <div class="eyebrow">Chương 02 <span>Using Copilot Responsibly</span></div>
+        <h1>Dùng Copilot có trách nhiệm</h1>
+        <p class="lead">Cốt lõi: Copilot là trợ lý, không phải nguồn chân lý. Mọi đầu ra phải được kiểm chứng —
+          đây cũng là phần chiếm 15-20% điểm thi.</p>
+
+        <div class="big-picture">
+          <div class="eyebrow">Bức tranh lớn</div>
+          <p>AI sinh (generative AI) có rủi ro cố hữu; dùng có trách nhiệm nghĩa là hiểu rủi ro, có biện pháp giảm
+            thiểu, và luôn xác thực đầu ra trước khi dựa vào nó.</p>
+        </div>
+
+        <section>
+          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <ol class="recall">
+            <li><details><summary>Vì sao phải xác thực đầu ra của AI?</summary>
+              <p>Vì LLM có thể "ảo giác" (hallucinate), tạo code sai hoặc lỗ hổng bảo mật; bạn chịu trách nhiệm với code mình dùng.</p></details></li>
+            <li><details><summary>Ba nhóm rủi ro chính của generative AI?</summary>
+              <p>Thông tin sai (hallucination), code không an toàn, và thiên kiến/ vấn đề bản quyền.</p></details></li>
+            <li><details><summary>Biện pháp giảm thiểu phổ biến?</summary>
+              <p>Review bằng người, viết test, quét bảo mật, content exclusions, lọc code trùng public.</p></details></li>
+            <li><details><summary>"Vận hành Copilot có trách nhiệm" là gì?</summary>
+              <p>Luôn xem xét, kiểm thử và xác nhận đúng đắn trước khi tin dùng kết quả.</p></details></li>
+            <li><details><summary>Nên đối xử với code do AI tạo như thế nào?</summary>
+              <p>Như code của đồng nghiệp: đánh giá, kiểm thử, xác nhận — không merge vô điều kiện.</p></details></li>
+          </ol>
+        </section>
+
+        <section id="ghi-chu-nguyen-tac">
+          <h2><span class="kicker">Ghi chú</span>Nguyên tắc AI có trách nhiệm</h2>
+          <p>Dùng AI có trách nhiệm đòi hỏi nhận thức rõ <em class="term">rủi ro và giới hạn</em> của generative AI:</p>
+          <ul>
+            <li><strong>Hallucination</strong> — mô hình tạo ra nội dung nghe hợp lý nhưng sai thực tế (API không tồn tại, cú pháp sai).</li>
+            <li><strong>Code không an toàn</strong> — gợi ý có thể chứa lỗ hổng (injection, thiếu validate input…).</li>
+            <li><strong>Thiên kiến (bias)</strong> — đầu ra phản ánh thiên kiến trong dữ liệu huấn luyện.</li>
+            <li><strong>Bản quyền &amp; licensing</strong> — code có thể trùng code công khai; cần chú ý nguồn gốc.</li>
+          </ul>
+          <p>Trách nhiệm cuối cùng nằm ở người dùng: bạn duyệt và chịu trách nhiệm với từng dòng code được áp dụng.</p>
+        </section>
+
+        <section id="ghi-chu-harms">
+          <h2><span class="kicker">Ghi chú</span>Tác hại tiềm ẩn và biện pháp giảm thiểu</h2>
+          <table>
+            <thead><tr><th>Tác hại tiềm ẩn</th><th>Biện pháp giảm thiểu</th></tr></thead>
+            <tbody>
+              <tr><td>Code sai logic / hallucination</td><td>Review từng dòng, chạy thử, viết unit test</td></tr>
+              <tr><td>Lỗ hổng bảo mật</td><td>Quét code, dùng tools bảo mật, code review</td></tr>
+              <tr><td>Thiên kiến trong đầu ra</td><td>Nhận thức và đa dạng hóa input, xem xét ngữ cảnh</td></tr>
+              <tr><td>Lộ dữ liệu / bí mật</td><td>Content exclusions, không dán secret vào prompt</td></tr>
+              <tr><td>Trùng code public</td><td>Bật lọc "suggestions matching public code"</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="ghi-chu-validate">
+          <h2><span class="kicker">Ghi chú</span>Xác thực và vận hành có trách nhiệm</h2>
+          <p>Quy tắc vàng: <strong>assess → test → confirm</strong>. Đánh giá output như khi review code của đồng
+            nghiệp; chạy test và kiểm chứng tính đúng đắn trước khi tin dùng.</p>
+          <div class="callout">Không bao giờ dán bí mật (token, khóa API, mật khẩu) vào prompt — Copilot dùng prompt
+            làm ngữ cảnh; và chỉ nên cho Copilot truy cập đúng phần repo cần thiết.</div>
+          <p>Vận hành có trách nhiệm còn gồm: hiểu chính sách của tổ chức, dùng content exclusions cho file nhạy cảm,
+            và ghi nhớ rằng Copilot không thay thế phán đoán con người.</p>
+        </section>
+
+        <section>
+          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <ul class="drills">
+            <li><b>1. Soi một gợi ý</b>Nhờ Copilot viết hàm xử lý input người dùng, rồi tự tìm lỗ hổng trước khi dùng.</li>
+            <li><b>2. Test trước khi tin</b>Với code Copilot sinh, viết unit test và chạy để xác nhận hành vi.</li>
+            <li><b>3. Nhận diện hallucination</b>Hỏi Copilot một API "tưởng tượng", kiểm tra xem nó có tự tin bịa không.</li>
+            <li><b>4. Bảo vệ secret</b>Kiểm tra prompt của bạn không chứa token/khóa trước khi gửi.</li>
+          </ul>
+        </section>
+
+        <section id="cheat-sheet" class="cheatsheet">
+          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <div class="cheat-grid">
+            <div>
+              <h3>Rủi ro</h3>
+              <ul class="cheat-list">
+                <li>Hallucination</li>
+                <li>Code không an toàn</li>
+                <li>Thiên kiến</li>
+                <li>Bản quyền / trùng public code</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Giảm thiểu</h3>
+              <ul class="cheat-list">
+                <li>Review từng dòng</li>
+                <li>Viết và chạy test</li>
+                <li>Quét bảo mật</li>
+                <li>Content exclusions</li>
+                <li>Lọc public code</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Quy tắc vàng</h3>
+              <ul class="cheat-list">
+                <li>Assess → Test → Confirm</li>
+                <li>Không dán secret vào prompt</li>
+                <li>Bạn chịu trách nhiệm cuối cùng</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="extend">
+          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <ul>
+            <li>Câu hỏi dạng "điều gì là biện pháp giảm thiểu tốt nhất cho X" — gắn đúng rủi ro với biện pháp.</li>
+            <li>Nhớ bộ ba assess/test/confirm như một câu trả lời chuẩn cho mọi tình huống "nên làm gì".</li>
+          </ul>
+        </section>
+
+        <div class="mark-read" style="margin-top:32px">
+          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
+          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+        </div>
+
+        <section class="quiz panel" id="quiz" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Câu 1</span>
+          </div>
+          <div id="quiz-body"></div>
+        </section>
+
+        <section class="cards" id="flashcards" style="margin-top:34px">
+          <div class="panel-head">
+            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <span class="badge" id="cards-meta">1/14</span>
+          </div>
+          <div class="panel" id="cards-body"></div>
+        </section>
+
+        <nav class="pager">
+          <a href="ch01-overview.html"><span>Chương trước</span><strong>1 · Tổng quan</strong></a>
+          <a class="next" href="ch03-ide.html"><span>Chương tiếp</span><strong>3 · Copilot trong IDE</strong></a>
+        </nav>
+      </article>
+    </div>
+  </div>
+
+  <script src="../data/book.js"></script>
+  <script src="../data/ch02.js"></script>
+  <script src="../../assets/shell.js"></script>
+  <script src="../../assets/quiz.js"></script>
+  <script src="../../assets/cards.js"></script>
+  <script src="../../assets/pwa.js"></script>
+</body>
+</html>

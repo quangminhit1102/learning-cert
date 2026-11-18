@@ -1092,3 +1092,17 @@ td code, p code, li code {
 .cheat-grid > div, .table-scroll, .book-body, .dash-grid > * { min-width: 0; }
 
 .cheat-grid > div { max-width: 100%; }
+
+.exam-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 18px; }
+
+.plan-list { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+
+.plan-list li { line-height: 1.6; }
+
+.plan-list b { display: inline-block; min-width: 92px; color: var(--accent); }
+
+.plan-box { margin: 18px 0 0; }
+
+.cram-box .quiz-foot { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.cram-box .btn { flex: 1; justify-content: center; min-width: 140px; }
