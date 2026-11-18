@@ -590,6 +590,114 @@
     host.hidden = false;
   }
 
+  function initSync() {
+    const exportBtn = document.getElementById("export-progress");
+    const importBtn = document.getElementById("import-progress");
+    const fileInput = document.getElementById("import-file");
+    const note = document.getElementById("sync-note");
+    if (!exportBtn && !importBtn) return;
+
+    function allKeys() {
+      const out = {};
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (key && key.indexOf("gt.") === 0 && key !== "gt.theme.v1") {
+          try { out[key] = JSON.parse(localStorage.getItem(key)); } catch (err) { /* skip */ }
+        }
+      }
+      return out;
+    }
+
+    function isDate(value) {
+      return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value);
+    }
+
+    function mergeArray(a, b) {
+      const map = new Map();
+      (a || []).concat(b || []).forEach((entry) => {
+        const id = entry && entry.id ? entry.id : JSON.stringify(entry);
+        map.set(id, entry);
+      });
+      return Array.from(map.values());
+    }
+
+    function mergeObject(a, b) {
+      const out = Object.assign({}, a);
+      Object.keys(b || {}).forEach((key) => {
+        const av = a ? a[key] : undefined;
+        const bv = b[key];
+        if (av === undefined) { out[key] = bv; return; }
+        if (key === "read" && typeof av === "boolean" && typeof bv === "boolean") out[key] = av || bv;
+        else if (typeof av === "number" && typeof bv === "number") out[key] = Math.max(av, bv);
+        else if (isDate(av) && isDate(bv)) out[key] = av > bv ? av : bv;
+        else if (Array.isArray(av) && Array.isArray(bv)) out[key] = mergeArray(av, bv);
+        else if (av && bv && typeof av === "object" && typeof bv === "object") out[key] = mergeObject(av, bv);
+        else out[key] = bv;
+      });
+      return out;
+    }
+
+    function importData(data) {
+      let count = 0;
+      Object.keys(data).forEach((key) => {
+        const incoming = data[key];
+        if (key === "gt.installed.v1") {
+          const current = readJSON(key, {});
+          Object.keys(incoming || {}).forEach((id) => {
+            const a = current[id];
+            const b = incoming[id];
+            if (!a || (b && b.at && (!a.at || b.at > a.at))) current[id] = b;
+          });
+          writeJSON(key, current);
+          count += 1;
+          return;
+        }
+        const current = readJSON(key, null);
+        writeJSON(key, current ? mergeObject(current, incoming) : incoming);
+        count += 1;
+      });
+      return count;
+    }
+
+    if (exportBtn) {
+      exportBtn.addEventListener("click", () => {
+        const data = allKeys();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const date = new Date().toISOString().slice(0, 10);
+        link.href = url;
+        link.download = "cert-progress-" + date + ".json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        if (note) { note.textContent = "Exported " + Object.keys(data).length + " progress keys."; note.hidden = false; }
+      });
+    }
+
+    if (importBtn && fileInput) {
+      importBtn.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const data = JSON.parse(String(reader.result));
+            const count = importData(data);
+            if (note) { note.textContent = "Imported " + count + " keys. Reloading..."; note.hidden = false; }
+            window.setTimeout(() => window.location.reload(), 900);
+          } catch (err) {
+            if (note) { note.textContent = "Invalid file. Please choose the exported .json."; note.hidden = false; }
+          }
+        };
+        reader.readAsText(file);
+        fileInput.value = "";
+      });
+    }
+  }
+
   function init() {
     initTheme();
     if (bookId) GT.progress.bumpStreak();
@@ -598,6 +706,7 @@
     initPrint();
     if (page === "dashboard") initDashboard();
     if (page === "library") initLibrary();
+    initSync();
     if (isChapter) {
       GT.progress.touch(body.dataset.chapter);
       initMarkRead();

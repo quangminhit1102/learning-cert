@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Certification Library">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <title>Certification Library</title>
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/shell.css">
 </head>
@@ -38,6 +43,22 @@
         </div>
 
         <div class="book-grid" id="book-grid"></div>
+
+        <section class="panel sync-box" style="margin-top:22px">
+          <div class="panel-head"><h2><span class="kicker">Sync</span>Progress across devices</h2></div>
+          <p class="read-note" style="margin:0">Export your progress to a file, then import it on another device.
+            Progress is merged, never overwritten.</p>
+          <div class="quiz-foot" style="margin-top:12px">
+            <button class="btn" id="export-progress" type="button">Export progress</button>
+            <button class="btn" id="import-progress" type="button">Import progress</button>
+            <input id="import-file" type="file" accept="application/json,.json" hidden>
+          </div>
+          <p class="read-note" id="sync-note" hidden></p>
+        </section>
+
+        <div class="quiz-foot" style="margin-top:12px">
+          <button class="btn primary" id="install-app" type="button" hidden>Install app</button>
+        </div>
 
         <p class="install-hint" id="install-hint" hidden></p>
 
