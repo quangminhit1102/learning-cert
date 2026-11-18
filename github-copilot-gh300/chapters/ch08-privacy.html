@@ -35,9 +35,9 @@
           <h2><span class="kicker">Recall check</span>5 things you must remember</h2>
           <ol class="recall">
             <li><details><summary>At which levels do content exclusions exist?</summary>
-              <p>Repository level (settings) and organization level (enterprise).</p></details></li>
-            <li><details><summary>Which file excludes content within a repo?</summary>
-              <p><code>.copilotignore</code> — works like <code>.gitignore</code>.</p></details></li>
+              <p>Repository, organization, and enterprise levels.</p></details></li>
+            <li><details><summary>How is content exclusion configured?</summary>
+              <p>In repo, organization, or enterprise settings (or via the REST API) — not in a single file.</p></details></li>
             <li><details><summary>What is the public-code filter for?</summary>
               <p>Blocking suggestions that match public code (suggestions matching public code).</p></details></li>
             <li><details><summary>Who owns the code you write with Copilot?</summary>
@@ -49,13 +49,17 @@
 
         <section id="ghi-chu-exclusions">
           <h2><span class="kicker">Notes</span>Content exclusions</h2>
-          <p>Content exclusions stop Copilot from accessing sensitive content. You can configure:</p>
+          <p>Content exclusions stop Copilot from accessing sensitive content. Repository admins, organization owners,
+            and enterprise owners can configure them at three levels:</p>
           <ul>
-            <li><strong>Repository-level</strong> — in the repo's Settings.</li>
-            <li><strong>Organization-level</strong> — rules set by an admin for the whole organization (enterprise).</li>
-            <li><strong><code>.copilotignore</code></strong> — a file in the repo listing paths to exclude.</li>
+            <li><strong>Repository-level</strong> — set in the repo's Settings (affects users working in that repo).</li>
+            <li><strong>Organization-level</strong> — rules for users assigned a Copilot seat through that org.</li>
+            <li><strong>Enterprise-level</strong> — rules that apply to all Copilot users in the enterprise.</li>
           </ul>
-          <p>You can also adjust <em class="term">editor settings</em> to control Copilot behavior in the IDE.</p>
+          <p>Org and enterprise owners can also manage exclusions programmatically via the <em class="term">REST API</em>.</p>
+          <div class="callout">Content exclusion is a <strong>guardrail</strong>, not a filesystem security boundary: it
+            is not guaranteed to be respected by third-party MCP servers or clients, and it may miss indirect file
+            access (such as type information provided by the IDE).</div>
         </section>
 
         <section id="ghi-chu-ownership">
@@ -75,7 +79,7 @@
         <section id="ghi-chu-troubleshoot">
           <h2><span class="kicker">Notes</span>Troubleshooting</h2>
           <ul>
-            <li>Suggestions still come from excluded files → check the path/pattern in exclusions and <code>.copilotignore</code>.</li>
+            <li>Suggestions still come from excluded files → check the paths/patterns in the exclusion settings.</li>
             <li>No suggestions → confirm inline suggestions are enabled and you're signed in with a seated account.</li>
             <li>Org-level exclusion not effective → check the admin policy and the audit log for changes.</li>
           </ul>
@@ -84,7 +88,7 @@
         <section>
           <h2><span class="kicker">Practice</span>Try it</h2>
           <ul class="drills">
-            <li><b>1. Create .copilotignore</b>Add a sensitive file, confirm Copilot no longer uses it.</li>
+            <li><b>1. Configure a repo exclusion</b>Add a sensitive file in Repo Settings → Copilot → Content exclusion, confirm Copilot no longer uses it.</li>
             <li><b>2. Enable the public-code filter</b>In Copilot Settings, enable "Suggestions matching public code".</li>
             <li><b>3. Test exclusions</b>Exclude a folder, then ask Copilot about its contents.</li>
             <li><b>4. Read ownership</b>Check the license of Copilot-suggested code before using it in a project.</li>
@@ -97,10 +101,9 @@
             <div>
               <h3>Exclusions</h3>
               <ul class="cheat-list">
-                <li>Repo settings</li>
-                <li>Org (enterprise)</li>
-                <li>.copilotignore</li>
-                <li>Editor settings</li>
+                <li>Repo · Org · Enterprise</li>
+                <li>REST API</li>
+                <li>Guardrail, not a security boundary</li>
               </ul>
             </div>
             <div>
@@ -125,7 +128,7 @@
         <section class="extend">
           <h2><span class="kicker">Beyond the book</span>Exam tips <span class="tag">extra</span></h2>
           <ul>
-            <li>Remember the 3 exclusion locations: repo / org / .copilotignore.</li>
+            <li>Remember the 3 exclusion levels: repo / organization / enterprise (plus REST API).</li>
             <li>Distinguish "public-code filter" (copyright) from "content exclusions" (data security).</li>
           </ul>
         </section>
