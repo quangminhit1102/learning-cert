@@ -8,7 +8,7 @@
   const bank = window[dataVar];
   const metaEl = document.getElementById("quiz-meta");
   if (!bank || !Array.isArray(bank.quiz) || bank.quiz.length === 0) {
-    host.innerHTML = '<div class="empty">Không tải được dữ liệu luyện tập của chương này.</div>';
+    host.innerHTML = '<div class="empty">Could not load practice data for this chapter.</div>';
     return;
   }
 
@@ -52,14 +52,14 @@
 
   function refLink(question) {
     if (!question.ref) return "";
-    return ' <a href="' + question.ref + '">Xem lại lý thuyết</a>';
+    return ' <a href="' + question.ref + '">Review theory</a>';
   }
 
   function showFeedback(question, correct) {
     const box = document.getElementById("q-feedback");
     if (!box) return;
     box.className = "feedback " + (correct ? "ok" : "no");
-    box.innerHTML = "<strong>" + (correct ? "Đúng." : "Chưa đúng.") + "</strong> " +
+    box.innerHTML = "<strong>" + (correct ? "Correct." : "Incorrect.") + "</strong> " +
       '<span class="explain">' + question.explain + "</span>" + refLink(question);
     box.hidden = false;
   }
@@ -72,7 +72,7 @@
     const next = document.getElementById("q-next");
     if (next) {
       next.hidden = false;
-      next.textContent = index === questions.length - 1 ? "Xem kết quả" : "Câu tiếp";
+      next.textContent = index === questions.length - 1 ? "See results" : "Next";
       next.focus();
     }
   }
@@ -108,8 +108,8 @@
   function renderFill(question) {
     const wrap = document.createElement("div");
     wrap.innerHTML = '<p class="q-text">' + question.q + "</p>" +
-      '<div class="fill-row"><input id="q-fill" type="text" autocomplete="off" spellcheck="false" placeholder="Nhập đáp án...">' +
-      '<button class="btn primary" type="button" id="q-check">Kiểm tra</button></div>';
+      '<div class="fill-row"><input id="q-fill" type="text" autocomplete="off" spellcheck="false" placeholder="Type answer...">' +
+      '<button class="btn primary" type="button" id="q-check">Check</button></div>';
     host.innerHTML = progressBar();
     host.appendChild(wrap);
     const input = document.getElementById("q-fill");
@@ -131,9 +131,9 @@
     const wrap = document.createElement("div");
     wrap.innerHTML = '<p class="q-text">' + question.q + "</p>" +
       '<div class="fret-board"></div>' +
-      '<div class="quiz-foot"><span class="read-note">Bấm vào dây/phím để đánh dấu, bấm lại để bỏ.</span>' +
-      '<span class="spacer"></span><button class="btn ghost small" type="button" id="q-clear">Xoá hết</button>' +
-      '<button class="btn primary" type="button" id="q-check">Kiểm tra</button></div>';
+      '<div class="quiz-foot"><span class="read-note">Tap a string/fret to mark it, tap again to clear.</span>' +
+      '<span class="spacer"></span><button class="btn ghost small" type="button" id="q-clear">Clear all</button>' +
+      '<button class="btn primary" type="button" id="q-check">Check</button></div>';
     host.innerHTML = progressBar();
     host.appendChild(wrap);
     board = window.Diagrams.interactiveFretboard(wrap.querySelector(".fret-board"), { frets: 12 });
@@ -149,17 +149,17 @@
     board = null;
     const question = questions[index];
     const meta = document.getElementById("quiz-meta");
-    if (meta) meta.textContent = "Câu " + (index + 1) + "/" + questions.length;
+    if (meta) meta.textContent = "Q" + (index + 1) + "/" + questions.length;
     if (question.type === "fill") renderFill(question);
     else if (question.type === "fret") renderFret(question);
     else renderMcq(question);
 
     const foot = document.createElement("div");
     foot.className = "quiz-foot";
-    foot.innerHTML = '<span class="read-note" id="q-hint">' + (question.type === "mcq" ? "Chọn đáp án hoặc bấm phím 1-4." : "") + "</span>" +
+    foot.innerHTML = '<span class="read-note" id="q-hint">' + (question.type === "mcq" ? "Pick an answer or press 1-4." : "") + "</span>" +
       '<span class="spacer"></span>' +
       '<div id="q-feedback" class="feedback" hidden></div>' +
-      '<button class="btn primary" type="button" id="q-next" hidden>Câu tiếp</button>';
+      '<button class="btn primary" type="button" id="q-next" hidden>Next</button>';
     host.appendChild(foot);
 
     document.getElementById("q-next").addEventListener("click", () => {
@@ -177,22 +177,22 @@
     window.GT.progress.saveQuiz(chapterId, pct);
     document.dispatchEvent(new CustomEvent("gt:progress"));
 
-    let verdict = "Cần ôn lại chương này.";
-    if (pct === 100) verdict = "Hoàn hảo. Chuyển sang flashcard để giữ kiến thức.";
-    else if (pct >= 80) verdict = "Tốt. Xem lại các câu sai rồi học tiếp.";
-    else if (pct >= 60) verdict = "Tạm ổn. Đọc lại phần lý thuyết liên quan.";
+    let verdict = "You should review this chapter.";
+    if (pct === 100) verdict = "Perfect. Move on to flashcards to retain it.";
+    else if (pct >= 80) verdict = "Good. Review the missed ones and continue.";
+    else if (pct >= 60) verdict = "Okay. Re-read the related theory.";
 
     host.innerHTML = '<div class="result">' +
       '<div class="score">' + pct + '<small>%</small></div>' +
-      '<p><strong>' + right + "/" + total + " câu đúng.</strong> " + verdict + "</p>" +
-      '<div class="quiz-foot"><span class="spacer"></span><button class="btn primary" type="button" id="q-retry">Làm lại</button></div>' +
+      '<p><strong>' + right + "/" + total + " correct.</strong> " + verdict + "</p>" +
+      '<div class="quiz-foot"><span class="spacer"></span><button class="btn primary" type="button" id="q-retry">Retry</button></div>' +
       "</div>" +
-      (wrong.length ? '<div class="wrong-list"><h3>Câu cần xem lại</h3>' + wrong.map((item) =>
+      (wrong.length ? '<div class="wrong-list"><h3>Questions to review</h3>' + wrong.map((item) =>
         '<details><summary>' + item.question.q + '</summary><div class="feedback no" style="margin-top:8px">' +
         item.question.explain + refLink(item.question) + "</div></details>").join("") + "</div>" : "");
 
     const meta = document.getElementById("quiz-meta");
-    if (meta) meta.textContent = "Kết quả";
+    if (meta) meta.textContent = "Result";
     document.getElementById("q-retry").addEventListener("click", () => {
       index = 0;
       results = [];

@@ -1,35 +1,35 @@
-# Thư viện chứng chỉ
+# Certification Library
 
-Web tĩnh để ôn thi chứng chỉ trên điện thoại: ghi chú, quiz, flashcard, mock test, ôn tập ngắt quãng.
-Cài được lên màn hình chính (PWA) và dùng offline sau lần mở đầu tiên.
+A static website for studying certifications on your phone: notes, quiz, flashcards, mock tests and
+spaced repetition. Installable as a PWA and usable offline after the first open.
 
-## Cấu trúc
+## Structure
 
 ```
-index.html                 thư viện chứng chỉ
-assets/                    shell dùng chung (CSS, JS, mock engine, icon, service worker)
-<cert-slug>/               mỗi chứng chỉ một thư mục
-  index.html               dashboard (tiến độ + kế hoạch ôn thi)
-  chapters/                trang chương
+index.html                 certificate library
+assets/                    shared shell (CSS, JS, mock engine, icons, service worker)
+<cert-slug>/               one folder per certificate
+  index.html               dashboard (progress + study plan)
+  chapters/                chapter pages
   data/                    book.js, chXX.js, glossary.js
-  mock.html  wrong.html    mock test + ôn câu sai
-docs/adding-a-cert.md      cách thêm chứng chỉ mới
+  mock.html  wrong.html    mock test + missed-question review
+docs/adding-a-cert.md      how to add a new certificate
 ```
 
-## Chạy tại máy
+## Run locally
 
 ```
 python -m http.server 8123
 ```
 
-Mở `http://127.0.0.1:8123/`.
+Open `http://127.0.0.1:8123/`.
 
-## Kiểm tra dữ liệu
+## Validate data
 
 ```
 node tools/validate.js
 ```
 
-## Triển khai
+## Deploy
 
-Push lên `main`; GitHub Pages tự build. Tăng `VERSION` trong `sw.js` khi sửa nội dung.
+Push to `main`; GitHub Pages builds automatically. Bump `VERSION` in `sw.js` when you change content.

@@ -1,7 +1,7 @@
 {
-  "name": "Thư viện chứng chỉ",
-  "short_name": "Chứng chỉ",
-  "description": "Ôn thi chứng chỉ: ghi chú, quiz, flashcard và mock test, dùng offline.",
+  "name": "Certification Library",
+  "short_name": "Certs",
+  "description": "Study for certifications: notes, quiz, flashcards and mock tests, offline.",
   "lang": "vi",
   "start_url": "./",
   "scope": "./",

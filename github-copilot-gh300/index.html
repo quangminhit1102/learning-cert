@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>GitHub Copilot (GH-300) — Ôn thi</title>
+  <title>GitHub Copilot (GH-300) — Exam Prep</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/shell.css">
 </head>
@@ -13,9 +13,9 @@
     <aside class="sidebar" id="sidebar"></aside>
     <div class="main">
       <header class="topbar">
-        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
         <span class="crumb">GH-300 · GitHub Copilot</span>
-        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Light</span></button>
       </header>
 
       <div class="dash">
@@ -24,63 +24,62 @@
             <div>
               <div class="eyebrow">Microsoft <span>· Exam GH-300</span></div>
               <h1>GitHub Copilot (GH-300)</h1>
-              <p class="lead">Ôn thi chứng chỉ GitHub Copilot: 6 nhóm chủ đề, ghi chú + quiz + flashcard + mock test.
-                Kỳ thi 100 phút, đỗ từ 700 điểm, hiệu lực 2 năm.</p>
+              <p class="lead">Study for the GitHub Copilot certification: 6 skill areas, notes + quiz + flashcards +
+                mock test. 100 minutes, pass with 700+, valid for 2 years.</p>
             </div>
-            <a class="btn primary" id="continue-btn" href="chapters/ch01-overview.html">Học tiếp</a>
+            <a class="btn primary" id="continue-btn" href="chapters/ch01-overview.html">Continue</a>
           </div>
           <div class="exam-facts">
-            <span class="badge">100 phút</span>
-            <span class="badge">Đỗ ≥ 700</span>
-            <span class="badge">6 nhóm chủ đề</span>
-            <span class="badge">Cập nhật 08/2026</span>
+            <span class="badge">100 min</span>
+            <span class="badge">Pass ≥ 700</span>
+            <span class="badge">6 skill areas</span>
+            <span class="badge">Updated 08/2026</span>
           </div>
           <div class="overall">
             <div class="overall-bar" id="overall-bar"><span style="width:0%"></span></div>
-            <div class="overall-meta"><span id="overall-pct">0%</span><span id="overall-meta">Đã ôn 0/0 thẻ</span></div>
+            <div class="overall-meta"><span id="overall-pct">0%</span><span id="overall-meta">Reviewed 0/0 cards</span></div>
           </div>
         </div>
 
         <div class="dash-grid">
           <div class="panel review-box">
             <div class="panel-head">
-              <h2><span class="kicker">Hôm nay</span>Ôn tập</h2>
-              <span class="badge" id="streak">0 ngày</span>
+              <h2><span class="kicker">Today</span>Review</h2>
+              <span class="badge" id="streak">0 day streak</span>
             </div>
-            <div class="review-count" id="review-count">0 <small>thẻ đến hạn</small></div>
-            <p class="read-note" style="margin:0">Lịch ôn ngắt quãng: Again 10 phút · Hard 1 ngày · Good 3 ngày.</p>
-            <a class="btn primary" id="review-btn" href="chapters/ch01-overview.html?review=1">Ôn ngay</a>
+            <div class="review-count" id="review-count">0 <small>cards due</small></div>
+            <p class="read-note" style="margin:0">Spaced repetition: Again 10 min · Hard 1 day · Good 3 days.</p>
+            <a class="btn primary" id="review-btn" href="chapters/ch01-overview.html?review=1">Review now</a>
           </div>
           <div class="panel cram-box">
-            <div class="panel-head"><h2><span class="kicker">Ôn thi</span>Mock & câu sai</h2></div>
-            <p class="read-note" style="margin:0">Trộn câu từ 8 chương để thử sức như thi thật; câu sai được ghi lại để ôn riêng.</p>
+            <div class="panel-head"><h2><span class="kicker">Exam prep</span>Mock &amp; missed</h2></div>
+            <p class="read-note" style="margin:0">Mix questions from all 8 chapters to simulate the real exam; missed questions are saved for focused review.</p>
             <div class="quiz-foot" style="margin-top:12px">
               <a class="btn primary" href="mock.html">Mock test</a>
-              <a class="btn" href="wrong.html">Ôn câu sai</a>
+              <a class="btn" href="wrong.html">Review missed</a>
             </div>
           </div>
         </div>
 
         <section class="panel plan-box">
-          <div class="panel-head"><h2><span class="kicker">Lộ trình</span>Kế hoạch 7 ngày</h2></div>
+          <div class="panel-head"><h2><span class="kicker">Roadmap</span>7-day plan</h2></div>
           <ol class="plan-list">
-            <li><b>Ngày 1–2</b><span>Đọc "5 điều bắt buộc nhớ" + TL;DR của 8 chương (Ch1 → Ch8).</span></li>
-            <li><b>Ngày 3–4</b><span>Làm quiz từng chương; câu sai đọc lại đúng mục lý thuyết.</span></li>
-            <li><b>Ngày 5</b><span>Lật hết flashcard, chấm Again/Hard/Good.</span></li>
-            <li><b>Ngày 6</b><span>Làm lại quiz chương điểm thấp + mục "Ôn câu sai".</span></li>
-            <li><b>Ngày 7</b><span>Mock test tổng hợp, ôn lại các câu sai cuối cùng.</span></li>
+            <li><b>Day 1–2</b><span>Read the "5 must-remember" + TL;DR of all 8 chapters (Ch1 → Ch8).</span></li>
+            <li><b>Day 3–4</b><span>Do each chapter quiz; re-read the linked theory for every miss.</span></li>
+            <li><b>Day 5</b><span>Flip all flashcards, self-rate Again/Hard/Good.</span></li>
+            <li><b>Day 6</b><span>Re-take the lowest-score chapter quizzes + the "Review missed" list.</span></li>
+            <li><b>Day 7</b><span>Full mock test, then review the last remaining misses.</span></li>
           </ol>
         </section>
 
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 12px;flex-wrap:wrap">
-          <h2 style="margin:0;font-size:18px">8 chương</h2>
-          <a class="btn small" href="glossary.html" hidden>Tra cứu A–Z</a>
+          <h2 style="margin:0;font-size:18px">8 chapters</h2>
         </div>
         <div class="search-wrap">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
           </svg>
-          <input id="chapter-search" type="search" placeholder="Tìm chủ đề: prompt, agent, privacy, cli...">
+          <input id="chapter-search" type="search" placeholder="Search topics: prompt, agent, privacy, cli...">
         </div>
         <div class="chapter-grid" id="chapter-grid"></div>
       </div>

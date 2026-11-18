@@ -17,7 +17,7 @@
     if (document.querySelector(".update-banner")) return;
     const banner = document.createElement("div");
     banner.className = "update-banner";
-    banner.innerHTML = '<span>Có bản mới của thư viện.</span><button class="btn small primary" type="button">Tải lại</button>';
+    banner.innerHTML = '<span>A new version is available.</span><button class="btn small primary" type="button">Reload</button>';
     banner.querySelector("button").addEventListener("click", () => {
       worker.postMessage("SKIP_WAITING");
     });

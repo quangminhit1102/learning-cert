@@ -1,26 +1,25 @@
-# Thêm một chứng chỉ mới
+# Add a new certificate
 
-Mỗi chứng chỉ là một mục trong thư viện, dùng chung shell. Chỉ cần dữ liệu và nội dung của nó.
+Each certificate is an entry in the library and shares the shell. Only its own data and content are needed.
 
-## 1. Tạo thư mục
+## 1. Create a folder
 
-Đặt tên theo `tên-nhà-cung-cấp`, viết thường, gạch nối. Ví dụ:
-`github-copilot-gh300/`
+Name it after the provider, lowercase, hyphenated. Example: `github-copilot-gh300/`
 
 ```
 <slug>/
-  index.html            dashboard (tiến độ + kế hoạch 7 ngày)
+  index.html            dashboard (progress + 7-day plan)
   chapters/ch01-....html
   data/book.js          window.BOOK
   data/chXX.js          window.CHXX
-  data/glossary.js      window.GLOSSARY (tùy chọn)
-  mock.html             mock test trộn câu
-  wrong.html            ôn câu đã sai
+  data/glossary.js      window.GLOSSARY (optional)
+  mock.html             mixed mock test
+  wrong.html            review missed questions
 ```
 
-## 2. Khai báo trong thư viện
+## 2. Register in the library
 
-Thêm entry vào `assets/data/library.js`:
+Add an entry to `assets/data/library.js`:
 
 ```js
 window.LIBRARY = [
@@ -37,7 +36,7 @@ window.LIBRARY = [
 ];
 ```
 
-## 3. Khai báo sách trong `data/book.js`
+## 3. Declare the book in `data/book.js`
 
 ```js
 window.BOOK = {
@@ -46,6 +45,7 @@ window.BOOK = {
   title: "GitHub Copilot (GH-300)",
   shortTitle: "GH-300",
   author: "Microsoft",
+  hasGlossary: false,
   chaptersDir: "chapters",
   chapters: [
     { id: "ch01", num: 1, title: "...", vi: "...", file: "ch01-....html", data: "CH01", built: true, keywords: [] }
@@ -53,14 +53,14 @@ window.BOOK = {
 };
 ```
 
-## 4. Trang chương
+## 4. Chapter pages
 
-Copy một chương mẫu rồi sửa:
+Copy a sample chapter, then change:
 - `<body data-page="chapter" data-book="gh300" data-chapter="ch01" data-data="CH01" data-root="../.." data-book-root="..">`
-- Scripts: `../data/book.js`, `../data/chXX.js`, `../../assets/diagrams.js`, `../../assets/shell.js`,
-  `../../assets/quiz.js`, `../../assets/cards.js`, `../../assets/pwa.js`.
+- Scripts: `../data/book.js`, `../data/chXX.js`, `../../assets/shell.js`, `../../assets/quiz.js`,
+  `../../assets/cards.js`, `../../assets/pwa.js`.
 
-## 5. Dữ liệu chương
+## 5. Chapter data
 
 ```js
 window.CH01 = {
@@ -69,12 +69,12 @@ window.CH01 = {
 };
 ```
 
-Mỗi chương ≥12 câu quiz, ≥12 thẻ; `ref` trỏ tới `id` có trong HTML.
+Each chapter needs at least 12 quiz questions and 10 cards; `ref` must point to an existing `id` in the HTML.
 
 ## 6. PWA
 
-Thêm file của chứng chỉ vào `PRECACHE` trong `sw.js` và tăng `VERSION`.
+Add the certificate's files to `PRECACHE` in `sw.js` and bump `VERSION`.
 
-## 7. Kiểm tra
+## 7. Validate
 
-`node tools/validate.js`, rồi mở thư viện và chứng chỉ ở 375/390/430px để chắc không tràn ngang.
+Run `node tools/validate.js`, then open the library and the certificate at 375/390/430px to confirm no horizontal overflow.

@@ -68,14 +68,14 @@
 
   if (wrongPage) {
     if (savedWrong.length === 0) {
-      host.innerHTML = '<div class="empty">Chưa có câu sai nào. Làm quiz hoặc mock test để hệ thống tự ghi lại câu bạn sai.</div>';
+      host.innerHTML = '<div class="empty">No missed questions yet. Take a quiz or mock test and wrong answers will be recorded here.</div>';
       return;
     }
     const all = pool();
     const map = new Map(all.map((item) => [item.question.id, item]));
     deck = savedWrong.map((entry) => map.get(entry.id)).filter(Boolean);
     if (deck.length === 0) {
-      host.innerHTML = '<div class="empty">Danh sách câu sai đã lỗi thời. Hãy làm quiz hoặc mock test mới.</div>';
+      host.innerHTML = '<div class="empty">The missed-question list is out of date. Take a new quiz or mock test.</div>';
       return;
     }
     deck = shuffle(deck);
@@ -88,9 +88,9 @@
   const total = deck.length;
 
   function renderList() {
-    document.getElementById("mock-meta").textContent = deck.length + " câu";
-    host.innerHTML = '<div class="wrong-head"><h2>Câu đã sai</h2><span class="badge">' + deck.length + " câu</span>" +
-      '<button class="btn primary" type="button" id="wrong-retry">Ôn lại các câu sai</button></div>' +
+    document.getElementById("mock-meta").textContent = deck.length + " questions";
+    host.innerHTML = '<div class="wrong-head"><h2>Missed questions</h2><span class="badge">' + deck.length + " questions</span>" +
+      '<button class="btn primary" type="button" id="wrong-retry">Retry missed questions</button></div>' +
       '<div class="wrong-list">' + deck.map((item, i) => {
         const q = item.question;
         return '<details><summary><span class="w-num">' + (i + 1) + "</span> " + q.q + "</summary>" +
@@ -120,10 +120,10 @@
       html += '<div class="opts">' + q.options.map((opt, i) =>
         '<button type="button" class="opt" data-i="' + i + '"><span class="key">' + (i + 1) + "</span><span>" + opt + "</span></button>").join("") + "</div>";
     } else {
-      html += '<div class="fill-row"><input id="q-fill" type="text" autocomplete="off" spellcheck="false" placeholder="Nhập đáp án..."><button class="btn primary" type="button" id="q-check">Kiểm tra</button></div>';
+      html += '<div class="fill-row"><input id="q-fill" type="text" autocomplete="off" spellcheck="false" placeholder="Type answer..."><button class="btn primary" type="button" id="q-check">Check</button></div>';
     }
     html += '<div class="quiz-foot"><span class="spacer"></span><div id="q-feedback" class="feedback" hidden></div>' +
-      '<button class="btn primary" type="button" id="q-next" hidden>Câu tiếp</button></div>';
+      '<button class="btn primary" type="button" id="q-next" hidden>Next</button></div>';
     host.innerHTML = html;
 
     const opts = host.querySelectorAll(".opt");
@@ -168,13 +168,13 @@
     const box = document.getElementById("q-feedback");
     if (box) {
       box.className = "feedback " + (correct ? "ok" : "no");
-      box.innerHTML = "<strong>" + (correct ? "Đúng." : "Chưa đúng.") + "</strong> <span class='explain'>" + q.explain + "</span>";
+      box.innerHTML = "<strong>" + (correct ? "Correct." : "Incorrect.") + "</strong> <span class='explain'>" + q.explain + "</span>";
       box.hidden = false;
     }
     const next = document.getElementById("q-next");
     if (next) {
       next.hidden = false;
-      next.textContent = index === total - 1 ? "Xem kết quả" : "Câu tiếp";
+      next.textContent = index === total - 1 ? "See results" : "Next";
       next.focus();
     }
   }
@@ -191,12 +191,12 @@
       sessionWrong.forEach((e) => { if (!ids.has(e.id)) { savedWrong.push(e); ids.add(e.id); } });
       writeJSON(WRONG_KEY, savedWrong);
     }
-    document.getElementById("mock-meta").textContent = "Kết quả";
+    document.getElementById("mock-meta").textContent = "Result";
     host.innerHTML = '<div class="result"><div class="score">' + pct + '<small>%</small></div>' +
-      '<p><strong>' + correctCount + "/" + total + " câu đúng.</strong> Câu sai đã được ghi vào mục \"Ôn câu sai\".</p>" +
+      '<p><strong>' + correctCount + "/" + total + " correct.</strong> Missed questions were saved to the review list.</p>" +
       '<div class="quiz-foot"><span class="spacer"></span>' +
-      (sessionWrong.length ? '<a class="btn" href="wrong.html">Ôn câu sai (' + sessionWrong.length + ")</a>" : "") +
-      '<button class="btn primary" type="button" id="q-retry">Làm lại</button></div></div>';
+      (sessionWrong.length ? '<a class="btn" href="wrong.html">Review missed (' + sessionWrong.length + ")</a>" : "") +
+      '<button class="btn primary" type="button" id="q-retry">Retry</button></div></div>';
     document.getElementById("q-retry").addEventListener("click", () => {
       index = 0;
       correctCount = 0;

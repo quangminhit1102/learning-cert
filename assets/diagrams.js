@@ -40,7 +40,7 @@
     const width = padL + frets * cellW + 16;
     const height = padT + 5 * cellH + padB;
     const svg = el("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "img" });
-    svg.setAttribute("aria-label", "Sơ đồ cần đàn với tên nốt");
+    svg.setAttribute("aria-label", "Fretboard diagram with note names");
 
     for (let s = 1; s <= 6; s += 1) {
       const y = padT + (s - 1) * cellH;
@@ -85,7 +85,7 @@
     const height = 108;
     const baseY = 58;
     const svg = el("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "img" });
-    svg.setAttribute("aria-label", `Nốt trên dây ${string} từ phím 0 đến ${frets}`);
+    svg.setAttribute("aria-label", `Notes on string ${string} from fret 0 to ${frets}`);
 
     el("line", { x1: padL, y1: baseY, x2: padL + frets * step, y2: baseY, class: "fb-string" }, svg);
     el("line", { x1: padL, y1: baseY - 10, x2: padL, y2: baseY + 10, class: "fb-nut" }, svg);
@@ -120,7 +120,7 @@
     const gapX = 16;
     const gapY = 20;
     const svg = el("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "img" });
-    svg.setAttribute("aria-label", `Thế bấm hợp âm ${opts.name}`);
+    svg.setAttribute("aria-label", `Chord voicing ${opts.name}`);
 
     text(svg, width / 2, 18, opts.name, "fb-open").setAttribute("text-anchor", "middle");
     text(svg, width / 2, 32, baseFret > 1 ? `${baseFret}fr` : "", "fb-fretnum").setAttribute("text-anchor", "middle");
@@ -165,7 +165,7 @@
     const top = 42;
     const groupW = 300;
     const svg = el("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "img" });
-    svg.setAttribute("aria-label", "Khuông nhạc khóa Sol với tên dòng và khoảng");
+    svg.setAttribute("aria-label", "Treble-clef staff with line and space names");
 
     function drawStaff(gx, label) {
       for (let i = 0; i < 5; i += 1) {
@@ -186,14 +186,14 @@
     }
 
     const leftX = 46;
-    drawStaff(leftX, "Dòng: từ dưới lên");
+    drawStaff(leftX, "Lines: bottom to top");
     const lineNames = ["E", "G", "B", "D", "F"];
     lineNames.forEach((name, i) => {
       note(leftX + 78 + i * 50, top + (4 - i) * gap, name, false);
     });
 
     const rightX = 410;
-    drawStaff(rightX, "Khoảng: từ dưới lên");
+    drawStaff(rightX, "Spaces: bottom to top");
     const spaceNames = ["F", "A", "C", "E"];
     spaceNames.forEach((name, i) => {
       note(rightX + 78 + i * 50, top + (3 - i) * gap + gap / 2, name, true);
@@ -213,7 +213,7 @@
     const width = padL + frets * cellW + 12;
     const height = padT + 5 * cellH + 26;
     const svg = el("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "group" });
-    svg.setAttribute("aria-label", "Cần đàn bấm thử: chọn dây và phím");
+    svg.setAttribute("aria-label", "Interactive fretboard: choose a string and fret");
 
     for (let s = 1; s <= 6; s += 1) {
       const y = padT + (s - 1) * cellH;
@@ -296,7 +296,7 @@
     const width = padL + frets * cellW + 14;
     const height = padT + 5 * cellH + padB;
     const svg = el("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "img" });
-    svg.setAttribute("aria-label", opts.label || "Thế bấm trên cần đàn");
+    svg.setAttribute("aria-label", opts.label || "Fretboard shape");
 
     for (let s = 1; s <= 6; s += 1) {
       const y = padT + (s - 1) * cellH;
@@ -346,7 +346,7 @@
     const rOuter = 132;
     const rInner = 86;
     const svg = el("svg", { width: size, height: size, viewBox: `0 0 ${size} ${size}`, role: "img" });
-    svg.setAttribute("aria-label", "Vòng quãng 5");
+    svg.setAttribute("aria-label", "Circle of fifths");
     const keys = [
       ["C", "Am"], ["G", "Em"], ["D", "Bm"], ["A", "F#m"], ["E", "C#m"], ["B", "G#m"],
       ["F#", "D#m"], ["Db", "Bbm"], ["Ab", "Fm"], ["Eb", "Cm"], ["Bb", "Gm"], ["F", "Dm"]
@@ -377,7 +377,7 @@
     center.setAttribute("font-size", "11");
     center.setAttribute("fill", "var(--muted)");
     center.setAttribute("font-family", "ui-sans-serif, system-ui, sans-serif");
-    center.textContent = opts.caption || "quãng 5 ↑";
+    center.textContent = opts.caption || "5ths ↑";
 
     target.appendChild(svg);
     return svg;

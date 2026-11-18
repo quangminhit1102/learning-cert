@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Chương 6 · Prompt engineering và ngữ cảnh — GH-300</title>
+  <title>Chapter 6 · Prompt Engineering &amp; Context — GH-300</title>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/shell.css">
 </head>
@@ -13,112 +13,113 @@
     <aside class="sidebar" id="sidebar"></aside>
     <div class="main">
       <header class="topbar">
-        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
-        <span class="crumb">Chương 06 / 08</span>
-        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
-        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
+        <span class="crumb">Chapter 06 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">Print cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Light</span></button>
       </header>
 
       <article class="chapter">
-        <div class="eyebrow">Chương 06 <span>Prompt Engineering &amp; Context Crafting</span></div>
-        <h1>Prompt engineering và tạo ngữ cảnh</h1>
-        <p class="lead">Chất lượng câu trả lời phụ thuộc rất lớn vào cách bạn viết prompt và cung cấp ngữ cảnh.
-          Đây là kỹ năng trực tiếp được đo trong đề thi.</p>
+        <div class="eyebrow">Chapter 06 <span>Prompt Engineering &amp; Context Crafting</span></div>
+        <h1>Prompt engineering and context</h1>
+        <p class="lead">Answer quality depends heavily on how you write prompts and supply context. This is a skill
+          the exam measures directly.</p>
 
         <div class="big-picture">
-          <div class="eyebrow">Bức tranh lớn</div>
-          <p>Prompt tốt = rõ mục tiêu + đủ ví dụ + đúng ngữ cảnh + lặp lại. Copilot dùng cả prompt lẫn ngữ cảnh
-            xung quanh để trả lời.</p>
+          <div class="eyebrow">The big picture</div>
+          <p>A good prompt = a clear goal + enough examples + the right context + iteration. Copilot uses both the
+            prompt and surrounding context to answer.</p>
         </div>
 
         <section>
-          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <h2><span class="kicker">Recall check</span>5 things you must remember</h2>
           <ol class="recall">
-            <li><details><summary>Thứ tự viết prompt tốt nhất?</summary>
-              <p>Bắt đầu tổng quát, rồi cụ thể dần; yêu cầu quan trọng nhất đặt đầu/cuối prompt.</p></details></li>
-            <li><details><summary>Vì sao nên cho ví dụ?</summary>
-              <p>Ví dụ input/output giúp Copilot hiểu đúng định dạng và hành vi mong muốn.</p></details></li>
-            <li><details><summary>Zero-shot và few-shot khác nhau thế nào?</summary>
-              <p>Zero-shot không kèm ví dụ; few-shot kèm vài ví dụ để định hướng.</p></details></li>
-            <li><details><summary>Cách cung cấp ngữ cảnh?</summary>
-              <p>Mở file liên quan, highlight code, dùng @ (file/symbol) và # (issue/PR), instructions files.</p></details></li>
-            <li><details><summary>Nên làm gì khi kết quả chưa ưng?</summary>
-              <p>Thử lại, chỉnh prompt, giữ lịch sử liên quan — lặp đến khi đạt.</p></details></li>
+            <li><details><summary>Best prompt order?</summary>
+              <p>Start general, then get specific; put the most important requirements first and last.</p></details></li>
+            <li><details><summary>Why give examples?</summary>
+              <p>Input/output examples help Copilot understand the expected format and behavior.</p></details></li>
+            <li><details><summary>Zero-shot vs few-shot?</summary>
+              <p>Zero-shot has no examples; few-shot includes a few examples to guide the model.</p></details></li>
+            <li><details><summary>How to provide context?</summary>
+              <p>Open relevant files, highlight code, use @ (files/symbols) and # (issues/PRs), instructions files.</p></details></li>
+            <li><details><summary>What if the result is not good?</summary>
+              <p>Iterate: adjust the prompt, retry, keep history relevant.</p></details></li>
           </ol>
         </section>
 
         <section id="ghi-chu-cau-truc">
-          <h2><span class="kicker">Ghi chú</span>Cấu trúc prompt</h2>
-          <p>Một prompt gồm <strong>yêu cầu</strong> + <strong>ngữ cảnh</strong>. Quy tắc: nêu mục tiêu tổng quát
-            trước, rồi liệt kê yêu cầu cụ thể, đặt điều quan trọng nhất ở đầu và cuối vì Copilot ưu tiên chúng.</p>
-          <div class="callout">Nói thẳng quy tắc thay vì meta-instruction: viết "Trả về JSON" thay vì "hãy nhớ luôn
-            trả về JSON".</div>
+          <h2><span class="kicker">Notes</span>Prompt structure</h2>
+          <p>A prompt has a <strong>request</strong> plus <strong>context</strong>. State the broad goal first, then
+            list specific requirements, placing the most important ones at the beginning and end since Copilot weights
+            them more.</p>
+          <div class="callout">State rules directly rather than as meta-instructions: write "Return JSON" instead of
+            "remember to always return JSON".</div>
         </section>
 
         <section id="ghi-chu-zero-few">
-          <h2><span class="kicker">Ghi chú</span>Zero-shot và few-shot</h2>
+          <h2><span class="kicker">Notes</span>Zero-shot and few-shot</h2>
           <ul>
-            <li><strong>Zero-shot</strong> — chỉ nêu nhiệm vụ, không kèm ví dụ. Phù hợp task đơn giản/quen thuộc.</li>
-            <li><strong>Few-shot</strong> — kèm 1-3 ví dụ (input + output) để model bắt chước định dạng và phong cách.</li>
+            <li><strong>Zero-shot</strong> — state the task with no examples. Fits simple, familiar tasks.</li>
+            <li><strong>Few-shot</strong> — include one to three examples (input + output) so the model matches the format and style.</li>
           </ul>
-          <p>Unit test cũng có thể dùng làm ví dụ: viết test trước, rồi yêu cầu Copilot sinh hàm thỏa các test đó.</p>
+          <p>Unit tests can serve as examples: write the tests first, then ask Copilot to write a function that passes them.</p>
         </section>
 
         <section id="ghi-chu-best-practices">
-          <h2><span class="kicker">Ghi chú</span>Các thực hành tốt</h2>
+          <h2><span class="kicker">Notes</span>Best practices</h2>
           <ul>
-            <li><strong>Chia nhỏ task phức tạp</strong> thành nhiều bước đơn giản.</li>
-            <li><strong>Tránh mơ hồ</strong> — hỏi rõ "hàm <code>createUser</code> làm gì" thay vì "cái này làm gì".</li>
-            <li><strong>Nêu rõ thư viện</strong> — đặt import ở đầu file hoặc nói rõ thư viện muốn dùng.</li>
-            <li><strong>Cung cấp ngữ cảnh liên quan</strong> — @ gắn file, # gắn issue/PR, highlight đoạn code.</li>
-            <li><strong>Giữ lịch sử liên quan</strong> — bắt phiên mới cho task mới; xóa lượt không cần.</li>
-            <li><strong>Lặp và thử lại</strong> — không ưng thì sửa prompt và chạy lại.</li>
-            <li><strong>Xem lại kết quả</strong> — đánh giá, test, xác nhận như review đồng nghiệp.</li>
+            <li><strong>Break complex tasks</strong> into simple, small steps.</li>
+            <li><strong>Avoid ambiguity</strong> — ask "what does the <code>createUser</code> function do" instead of "what does this do".</li>
+            <li><strong>Specify libraries</strong> — set imports at the top or name the library you want.</li>
+            <li><strong>Provide relevant context</strong> — @ attach files, # attach issues/PRs, highlight code.</li>
+            <li><strong>Keep history relevant</strong> — start a new session for a new task; remove irrelevant turns.</li>
+            <li><strong>Experiment and iterate</strong> — if not happy, adjust the prompt and retry.</li>
+            <li><strong>Review output</strong> — assess, test, and confirm like reviewing a colleague.</li>
           </ul>
         </section>
 
         <section id="ghi-chu-context">
-          <h2><span class="kicker">Ghi chú</span>Ngữ cảnh được xác định thế nào</h2>
-          <p>Ngữ cảnh đến từ nhiều nguồn tùy bề mặt: file đang mở trong IDE, đoạn code được highlight, các item gắn
-            bằng @/#, và các file hướng dẫn như <code>.github/copilot-instructions.md</code> hay <code>AGENTS.md</code>.
-            Ngữ cảnh càng chính xác, câu trả lời càng sát ý.</p>
+          <h2><span class="kicker">Notes</span>How context is determined</h2>
+          <p>Context comes from multiple sources depending on the surface: open files in the IDE, highlighted code,
+            items attached with @/#, and instruction files such as <code>.github/copilot-instructions.md</code> or
+            <code>AGENTS.md</code>. The more precise the context, the more relevant the answer.</p>
         </section>
 
         <section>
-          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <h2><span class="kicker">Practice</span>Try it</h2>
           <ul class="drills">
-            <li><b>1. Tổng quát → cụ thể</b>Viết prompt sinh hàm xử lý ngày: nêu mục tiêu, rồi liệt kê định dạng và edge case.</li>
-            <li><b>2. Few-shot</b>Đưa 2 ví dụ input/output trước khi yêu cầu Copilot sinh trường hợp thứ ba.</li>
-            <li><b>3. Test làm ví dụ</b>Viết unit test trước, rồi nhờ Copilot viết hàm vượt test đó.</li>
-            <li><b>4. Đính ngữ cảnh</b>Dùng @ để gắn đúng file, rồi yêu cầu sửa một hàm trong đó.</li>
+            <li><b>1. General → specific</b>Write a prompt for a date-handling function: state the goal, then list format and edge cases.</li>
+            <li><b>2. Few-shot</b>Give two input/output examples before asking Copilot to produce a third.</li>
+            <li><b>3. Tests as examples</b>Write unit tests first, then ask Copilot to write a function that passes them.</li>
+            <li><b>4. Attach context</b>Use @ to attach the right file, then ask to modify a function in it.</li>
           </ul>
         </section>
 
         <section id="cheat-sheet" class="cheatsheet">
-          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <h2><span class="kicker">One page</span>Cheat sheet</h2>
           <div class="cheat-grid">
             <div>
-              <h3>Cấu trúc</h3>
+              <h3>Structure</h3>
               <ul class="cheat-list">
-                <li>Tổng quát trước, cụ thể sau</li>
-                <li>Quan trọng nhất đầu/cuối</li>
-                <li>Nói thẳng quy tắc</li>
+                <li>General first, specific after</li>
+                <li>Most important first/last</li>
+                <li>State rules directly</li>
               </ul>
             </div>
             <div>
-              <h3>Kỹ thuật</h3>
+              <h3>Techniques</h3>
               <ul class="cheat-list">
-                <li>Cho ví dụ (few-shot)</li>
-                <li>Chia nhỏ task</li>
-                <li>Tránh mơ hồ</li>
-                <li>Lặp lại nếu chưa ưng</li>
+                <li>Give examples (few-shot)</li>
+                <li>Break tasks down</li>
+                <li>Avoid ambiguity</li>
+                <li>Iterate</li>
               </ul>
             </div>
             <div>
-              <h3>Ngữ cảnh</h3>
+              <h3>Context</h3>
               <ul class="cheat-list">
-                <li>Mở file liên quan</li>
-                <li>@ file · # issue/PR</li>
+                <li>Open relevant files</li>
+                <li>@ files · # issues/PRs</li>
                 <li>instructions / AGENTS.md</li>
               </ul>
             </div>
@@ -126,37 +127,37 @@
         </section>
 
         <section class="extend">
-          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <h2><span class="kicker">Beyond the book</span>Exam tips <span class="tag">extra</span></h2>
           <ul>
-            <li>Câu hỏi hay cho một tình huống và hỏi "cải thiện prompt bằng cách nào" — chọn đáp án thêm ví dụ/ngữ cảnh/chia nhỏ.</li>
-            <li>Ghi nhớ zero-shot = không ví dụ, few-shot = có ví dụ.</li>
+            <li>"How do you improve this prompt" questions — pick adding examples/context or breaking it down.</li>
+            <li>Remember: zero-shot = no examples, few-shot = with examples.</li>
           </ul>
         </section>
 
         <div class="mark-read" style="margin-top:32px">
-          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
-          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+          <button class="btn" id="mark-read" type="button">Mark as read</button>
+          <span class="read-note" id="read-note">Mark the chapter as read to track your progress.</span>
         </div>
 
         <section class="quiz panel" id="quiz" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
-            <span class="badge" id="quiz-meta">Câu 1</span>
+            <h2><span class="kicker">Check</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Q1</span>
           </div>
           <div id="quiz-body"></div>
         </section>
 
         <section class="cards" id="flashcards" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <h2><span class="kicker">Active recall</span>Flashcards</h2>
             <span class="badge" id="cards-meta">1/14</span>
           </div>
           <div class="panel" id="cards-body"></div>
         </section>
 
         <nav class="pager">
-          <a href="ch05-data-architecture.html"><span>Chương trước</span><strong>5 · Dữ liệu &amp; kiến trúc</strong></a>
-          <a class="next" href="ch07-productivity.html"><span>Chương tiếp</span><strong>7 · Năng suất &amp; bảo mật</strong></a>
+          <a href="ch05-data-architecture.html"><span>Previous chapter</span><strong>5 · Data &amp; architecture</strong></a>
+          <a class="next" href="ch07-productivity.html"><span>Next chapter</span><strong>7 · Productivity &amp; security</strong></a>
         </nav>
       </article>
     </div>

@@ -8,7 +8,7 @@
   const bank = window[dataVar];
   const metaEl = document.getElementById("cards-meta");
   if (!bank || !Array.isArray(bank.cards) || bank.cards.length === 0) {
-    host.innerHTML = '<div class="empty">Không tải được dữ liệu flashcard của chương này.</div>';
+    host.innerHTML = '<div class="empty">Could not load flashcard data for this chapter.</div>';
     return;
   }
 
@@ -35,8 +35,8 @@
   }
 
   function renderEmpty() {
-    host.innerHTML = '<div class="empty">Không có thẻ nào đến hạn. ' +
-      '<button class="btn small" type="button" id="cards-all">Học toàn bộ thẻ của chương</button></div>';
+    host.innerHTML = '<div class="empty">No cards are due. ' +
+      '<button class="btn small" type="button" id="cards-all">Study all cards in this chapter</button></div>';
     document.getElementById("cards-all").addEventListener("click", () => {
       deck = shuffle(bank.cards);
       index = 0;
@@ -58,13 +58,13 @@
     const card = deck[index];
     if (metaEl) metaEl.textContent = (index + 1) + "/" + deck.length;
     host.innerHTML = '<div class="card-face">' +
-      '<div class="hint">' + (reviewOnly ? "Ôn tập" : "Thẻ " + (index + 1)) + "</div>" +
+      '<div class="hint">' + (reviewOnly ? "Review" : "Card " + (index + 1)) + "</div>" +
       "<div>" + card.front + "</div>" +
-      '<button class="btn ghost small" type="button" id="card-hint">Gợi ý</button>' +
+      '<button class="btn ghost small" type="button" id="card-hint">Hint</button>' +
       '<div class="hint" id="card-hint-text" hidden>' + (card.hint || "") + "</div>" +
       "</div>" +
-      '<div class="quiz-foot"><span class="read-note">Bấm Space để lật thẻ.</span>' +
-      '<span class="spacer"></span><button class="btn primary" type="button" id="card-reveal">Lật thẻ</button></div>';
+      '<div class="quiz-foot"><span class="read-note">Press Space to flip.</span>' +
+      '<span class="spacer"></span><button class="btn primary" type="button" id="card-reveal">Flip card</button></div>';
     document.getElementById("card-reveal").addEventListener("click", reveal);
     const hintBtn = document.getElementById("card-hint");
     if (card.hint) {
@@ -86,9 +86,9 @@
       '<div class="answer">' + card.back + "</div>" +
       "</div>" +
       '<div class="rate-row">' +
-      '<button class="btn rate-again" type="button" data-rate="again">Again · 10 phút</button>' +
-      '<button class="btn rate-hard" type="button" data-rate="hard">Hard · 1 ngày</button>' +
-      '<button class="btn rate-good" type="button" data-rate="good">Good · 3 ngày</button>' +
+      '<button class="btn rate-again" type="button" data-rate="again">Again · 10 min</button>' +
+      '<button class="btn rate-hard" type="button" data-rate="hard">Hard · 1 day</button>' +
+      '<button class="btn rate-good" type="button" data-rate="good">Good · 3 days</button>' +
       "</div>";
     Array.from(host.querySelectorAll("[data-rate]")).forEach((btn) => {
       btn.addEventListener("click", () => rate(btn.dataset.rate));
@@ -107,9 +107,9 @@
   function renderDone() {
     if (metaEl) metaEl.textContent = "Xong";
     host.innerHTML = '<div class="result">' +
-      '<div class="score">' + correctCount + '<small> thẻ nhớ</small></div>' +
-      '<p>Đã xử lý ' + (index) + " lượt thẻ. Thẻ ở mức Again sẽ quay lại sau 10 phút.</p>" +
-      '<div class="quiz-foot"><span class="spacer"></span><button class="btn" type="button" id="cards-restart">Làm lại</button></div>' +
+      '<div class="score">' + correctCount + '<small> cards recalled</small></div>' +
+      '<p>Reviewed ' + (index) + " cards. Cards rated Again will return in 10 minutes.</p>" +
+      '<div class="quiz-foot"><span class="spacer"></span><button class="btn" type="button" id="cards-restart">Retry</button></div>' +
       "</div>";
     document.getElementById("cards-restart").addEventListener("click", () => {
       deck = shuffle(bank.cards);

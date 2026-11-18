@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Chương 8 · Privacy, Exclusions &amp; Safeguards — GH-300</title>
+  <title>Chapter 8 · Privacy, Exclusions &amp; Safeguards — GH-300</title>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/shell.css">
 </head>
@@ -13,86 +13,86 @@
     <aside class="sidebar" id="sidebar"></aside>
     <div class="main">
       <header class="topbar">
-        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
-        <span class="crumb">Chương 08 / 08</span>
-        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
-        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
+        <span class="crumb">Chapter 08 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">Print cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Light</span></button>
       </header>
 
       <article class="chapter">
-        <div class="eyebrow">Chương 08 <span>Privacy, Exclusions &amp; Safeguards</span></div>
-        <h1>Quyền riêng tư và biện pháp an toàn</h1>
-        <p class="lead">Kiểm soát những gì Copilot được phép đọc, bộ lọc code trùng public, và cách xử lý khi gợi ý
-          hoặc exclusion không như mong đợi.</p>
+        <div class="eyebrow">Chapter 08 <span>Privacy, Exclusions &amp; Safeguards</span></div>
+        <h1>Privacy and safeguards</h1>
+        <p class="lead">Control what Copilot can read, filter public-code matches, and know what to do when
+          suggestions or exclusions don't behave as expected.</p>
 
         <div class="big-picture">
-          <div class="eyebrow">Bức tranh lớn</div>
-          <p>Bạn quyết định Copilot thấy gì (content exclusions) và nhận gì (public code filter). Hai lớp này là
-            hàng rào bảo vệ dữ liệu và bản quyền.</p>
+          <div class="eyebrow">The big picture</div>
+          <p>You decide what Copilot sees (content exclusions) and what it returns (public-code filter). These two
+            layers protect your data and copyright.</p>
         </div>
 
         <section>
-          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <h2><span class="kicker">Recall check</span>5 things you must remember</h2>
           <ol class="recall">
-            <li><details><summary>Content exclusions có ở những cấp nào?</summary>
-              <p>Cấp repository (settings) và cấp organization (enterprise).</p></details></li>
-            <li><details><summary>File nào loại trừ nội dung trong repo?</summary>
-              <p><code>.copilotignore</code> — hoạt động tương tự <code>.gitignore</code>.</p></details></li>
-            <li><details><summary>Public code filter để làm gì?</summary>
-              <p>Chặn gợi ý trùng khớp code công khai (suggestions matching public code).</p></details></li>
-            <li><details><summary>Ai sở hữu code bạn viết với Copilot?</summary>
-              <p>Bạn sở hữu code mình viết; nhưng cần chú ý code có thể trùng public và vấn đề license.</p></details></li>
-            <li><details><summary>Khi exclusion/gợi ý hoạt động sai?</summary>
-              <p>Kiểm tra lại cấu hình, phạm vi exclusion, và troubleshoot theo hướng dẫn của GitHub.</p></details></li>
+            <li><details><summary>At which levels do content exclusions exist?</summary>
+              <p>Repository level (settings) and organization level (enterprise).</p></details></li>
+            <li><details><summary>Which file excludes content within a repo?</summary>
+              <p><code>.copilotignore</code> — works like <code>.gitignore</code>.</p></details></li>
+            <li><details><summary>What is the public-code filter for?</summary>
+              <p>Blocking suggestions that match public code (suggestions matching public code).</p></details></li>
+            <li><details><summary>Who owns the code you write with Copilot?</summary>
+              <p>You own the code you write; just watch for public-code matches and licensing.</p></details></li>
+            <li><details><summary>What if exclusions/suggestions misbehave?</summary>
+              <p>Check the configuration, exclusion scope, and troubleshoot per GitHub's guidance.</p></details></li>
           </ol>
         </section>
 
         <section id="ghi-chu-exclusions">
-          <h2><span class="kicker">Ghi chú</span>Content exclusions</h2>
-          <p>Content exclusions ngăn Copilot truy cập nội dung nhạy cảm. Có thể cấu hình:</p>
+          <h2><span class="kicker">Notes</span>Content exclusions</h2>
+          <p>Content exclusions stop Copilot from accessing sensitive content. You can configure:</p>
           <ul>
-            <li><strong>Repository-level</strong> — trong Settings của repo.</li>
-            <li><strong>Organization-level</strong> — admin đặt rule cho toàn tổ chức (enterprise).</li>
-            <li><strong><code>.copilotignore</code></strong> — file trong repo liệt kê đường dẫn cần loại trừ.</li>
+            <li><strong>Repository-level</strong> — in the repo's Settings.</li>
+            <li><strong>Organization-level</strong> — rules set by an admin for the whole organization (enterprise).</li>
+            <li><strong><code>.copilotignore</code></strong> — a file in the repo listing paths to exclude.</li>
           </ul>
-          <p>Ngoài ra có thể chỉnh <em class="term">editor settings</em> để kiểm soát hành vi Copilot trong IDE.</p>
+          <p>You can also adjust <em class="term">editor settings</em> to control Copilot behavior in the IDE.</p>
         </section>
 
         <section id="ghi-chu-ownership">
-          <h2><span class="kicker">Ghi chú</span>Sở hữu và giới hạn đầu ra</h2>
-          <p>Bạn sở hữu code do mình viết (kể cả có Copilot trợ giúp). Tuy nhiên, gợi ý có thể <strong>trùng code
-            công khai</strong> — khi đó cần xem xét license trước khi dùng. Copilot không đảm bảo code không vi phạm
-            bản quyền.</p>
+          <h2><span class="kicker">Notes</span>Ownership and output limits</h2>
+          <p>You own the code you write (including with Copilot's help). However, suggestions may <strong>match public
+            code</strong> — then you must consider the license before using it. Copilot does not guarantee the code is
+            free of copyright issues.</p>
         </section>
 
         <section id="ghi-chu-public-code">
-          <h2><span class="kicker">Ghi chú</span>Bộ lọc code trùng public</h2>
-          <p>Tính năng <em class="term">suggestions matching public code</em> chặn những gợi ý trùng khớp code công
-            khai. Khi bật, Copilot không hiển thị gợi ý khớp với public code (kèm tham chiếu nguồn). Cấu hình trong
-            Settings của Copilot.</p>
+          <h2><span class="kicker">Notes</span>Public-code matching filter</h2>
+          <p>The <em class="term">suggestions matching public code</em> feature blocks suggestions that match public
+            code. When enabled, Copilot won't show suggestions matching public code (with a source reference).
+            Configure it in Copilot Settings.</p>
         </section>
 
         <section id="ghi-chu-troubleshoot">
-          <h2><span class="kicker">Ghi chú</span>Xử lý sự cố</h2>
+          <h2><span class="kicker">Notes</span>Troubleshooting</h2>
           <ul>
-            <li>Gợi ý vẫn xuất hiện từ file đã loại trừ → kiểm tra đường dẫn/pattern trong exclusion và <code>.copilotignore</code>.</li>
-            <li>Không nhận gợi ý → xác nhận đã bật inline suggestions và đăng nhập đúng tài khoản có seat.</li>
-            <li>Exclusion cấp org chưa có hiệu lực → kiểm tra policy admin và audit log các thay đổi.</li>
+            <li>Suggestions still come from excluded files → check the path/pattern in exclusions and <code>.copilotignore</code>.</li>
+            <li>No suggestions → confirm inline suggestions are enabled and you're signed in with a seated account.</li>
+            <li>Org-level exclusion not effective → check the admin policy and the audit log for changes.</li>
           </ul>
         </section>
 
         <section>
-          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <h2><span class="kicker">Practice</span>Try it</h2>
           <ul class="drills">
-            <li><b>1. Tạo .copilotignore</b>Thêm một file nhạy cảm vào <code>.copilotignore</code>, xác nhận Copilot không dùng nó.</li>
-            <li><b>2. Bật public code filter</b>Vào Copilot Settings, bật "Suggestions matching public code".</li>
-            <li><b>3. Kiểm tra exclusion</b>Đặt exclusion cho một thư mục, hỏi Copilot nội dung trong đó.</li>
-            <li><b>4. Đọc ownership</b>Xem lại mục license của code Copilot gợi ý trước khi dùng vào dự án.</li>
+            <li><b>1. Create .copilotignore</b>Add a sensitive file, confirm Copilot no longer uses it.</li>
+            <li><b>2. Enable the public-code filter</b>In Copilot Settings, enable "Suggestions matching public code".</li>
+            <li><b>3. Test exclusions</b>Exclude a folder, then ask Copilot about its contents.</li>
+            <li><b>4. Read ownership</b>Check the license of Copilot-suggested code before using it in a project.</li>
           </ul>
         </section>
 
         <section id="cheat-sheet" class="cheatsheet">
-          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <h2><span class="kicker">One page</span>Cheat sheet</h2>
           <div class="cheat-grid">
             <div>
               <h3>Exclusions</h3>
@@ -106,54 +106,54 @@
             <div>
               <h3>Safeguards</h3>
               <ul class="cheat-list">
-                <li>Public code matching filter</li>
-                <li>Bạn sở hữu code mình viết</li>
-                <li>Chú ý license code trùng public</li>
+                <li>Public-code matching filter</li>
+                <li>You own the code you write</li>
+                <li>Check licenses for public matches</li>
               </ul>
             </div>
             <div>
               <h3>Troubleshoot</h3>
               <ul class="cheat-list">
-                <li>Kiểm tra pattern exclusion</li>
-                <li>Bật inline suggestions</li>
-                <li>Xem audit log thay đổi</li>
+                <li>Check exclusion patterns</li>
+                <li>Enable inline suggestions</li>
+                <li>Check the audit log</li>
               </ul>
             </div>
           </div>
         </section>
 
         <section class="extend">
-          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <h2><span class="kicker">Beyond the book</span>Exam tips <span class="tag">extra</span></h2>
           <ul>
-            <li>Nhớ 3 nơi cấu hình exclusion: repo / org / .copilotignore.</li>
-            <li>Phân biệt "public code filter" (bản quyền) với "content exclusions" (bảo mật dữ liệu).</li>
+            <li>Remember the 3 exclusion locations: repo / org / .copilotignore.</li>
+            <li>Distinguish "public-code filter" (copyright) from "content exclusions" (data security).</li>
           </ul>
         </section>
 
         <div class="mark-read" style="margin-top:32px">
-          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
-          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+          <button class="btn" id="mark-read" type="button">Mark as read</button>
+          <span class="read-note" id="read-note">Mark the chapter as read to track your progress.</span>
         </div>
 
         <section class="quiz panel" id="quiz" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
-            <span class="badge" id="quiz-meta">Câu 1</span>
+            <h2><span class="kicker">Check</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Q1</span>
           </div>
           <div id="quiz-body"></div>
         </section>
 
         <section class="cards" id="flashcards" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <h2><span class="kicker">Active recall</span>Flashcards</h2>
             <span class="badge" id="cards-meta">1/14</span>
           </div>
           <div class="panel" id="cards-body"></div>
         </section>
 
         <nav class="pager">
-          <a href="ch07-productivity.html"><span>Chương trước</span><strong>7 · Năng suất &amp; bảo mật</strong></a>
-          <a class="next" href="../index.html"><span>Tiếp theo</span><strong>Tổng quan · 8 chương</strong></a>
+          <a href="ch07-productivity.html"><span>Previous chapter</span><strong>7 · Productivity &amp; security</strong></a>
+          <a class="next" href="../index.html"><span>Next</span><strong>Overview · 8 chapters</strong></a>
         </nav>
       </article>
     </div>

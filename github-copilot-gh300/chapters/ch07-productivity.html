@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Chương 7 · Năng suất và bảo mật — GH-300</title>
+  <title>Chapter 7 · Productivity &amp; Security — GH-300</title>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/shell.css">
 </head>
@@ -13,77 +13,78 @@
     <aside class="sidebar" id="sidebar"></aside>
     <div class="main">
       <header class="topbar">
-        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
-        <span class="crumb">Chương 07 / 08</span>
-        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
-        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
+        <span class="crumb">Chapter 07 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">Print cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Light</span></button>
       </header>
 
       <article class="chapter">
-        <div class="eyebrow">Chương 07 <span>Developer Productivity &amp; Security</span></div>
-        <h1>Năng suất và bảo mật</h1>
-        <p class="lead">Dùng Copilot để sinh code, refactor, viết tài liệu, tạo test và phát hiện vấn đề bảo mật
-          — cách khai thác AI để làm việc nhanh và an toàn hơn.</p>
+        <div class="eyebrow">Chapter 07 <span>Developer Productivity &amp; Security</span></div>
+        <h1>Productivity and security</h1>
+        <p class="lead">Use Copilot to generate code, refactor, write docs, create tests, and surface security issues —
+          how to use AI to work faster and more safely.</p>
 
         <div class="big-picture">
-          <div class="eyebrow">Bức tranh lớn</div>
-          <p>Copilot không chỉ gợi ý code: nó giúp hiểu code nhanh, giảm gián đoạn, hiện đại hóa code cũ, và
-            nâng chất lượng qua test + rà soát bảo mật.</p>
+          <div class="eyebrow">The big picture</div>
+          <p>Copilot does more than suggest code: it helps you understand code faster, reduce context switching,
+            modernize legacy code, and raise quality through tests and security review.</p>
         </div>
 
         <section>
-          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <h2><span class="kicker">Recall check</span>5 things you must remember</h2>
           <ol class="recall">
-            <li><details><summary>Copilot hỗ trợ gì về code?</summary>
-              <p>Sinh code, refactor, viết tài liệu, sinh dữ liệu mẫu, hiện đại hóa code cũ.</p></details></li>
-            <li><details><summary>Copilot giúp học nhanh ra sao?</summary>
-              <p>Giải thích code lạ, giảm chuyển đổi ngữ cảnh khi tra tài liệu.</p></details></li>
-            <li><details><summary>Copilot hỗ trợ test thế nào?</summary>
-              <p>Sinh unit test và integration test, chỉ ra edge case, viết assertions.</p></details></li>
-            <li><details><summary>Về bảo mật, Copilot giúp gì?</summary>
-              <p>Gợi ý cải thiện bảo mật và tối ưu hiệu năng.</p></details></li>
-            <li><details><summary>Nguyên tắc khi dùng code Copilot sinh?</summary>
-              <p>Luôn review và chạy test trước khi dùng — kể cả code "cải thiện bảo mật".</p></details></li>
+            <li><details><summary>What does Copilot help with for code?</summary>
+              <p>Generating, refactoring, documenting, sample data, and modernizing legacy code.</p></details></li>
+            <li><details><summary>How does Copilot help you learn faster?</summary>
+              <p>It explains unfamiliar code and reduces context switching when looking things up.</p></details></li>
+            <li><details><summary>How does Copilot help with testing?</summary>
+              <p>Generates unit and integration tests, points out edge cases, writes assertions.</p></details></li>
+            <li><details><summary>How does Copilot help with security?</summary>
+              <p>It suggests security improvements and performance optimizations.</p></details></li>
+            <li><details><summary>The rule for Copilot-generated code?</summary>
+              <p>Always review and run tests before using it — even "security improvement" code.</p></details></li>
           </ol>
         </section>
 
         <section id="ghi-chu-code">
-          <h2><span class="kicker">Ghi chú</span>Sinh code, refactor và tài liệu</h2>
+          <h2><span class="kicker">Notes</span>Code generation, refactoring, and docs</h2>
           <ul>
-            <li><strong>Code generation</strong> — sinh hàm/mô-đun từ mô tả hoặc từ test.</li>
-            <li><strong>Refactoring</strong> — đổi tên, tách hàm, cải thiện cấu trúc mà giữ hành vi.</li>
-            <li><strong>Documentation</strong> — sinh comment, docstring, giải thích code.</li>
-            <li><strong>Sample data</strong> — tạo dữ liệu mẫu hợp lệ để test/phát triển.</li>
-            <li><strong>Modernize legacy code</strong> — gợi ý cập nhật code cũ sang cú pháp/pattern mới.</li>
+            <li><strong>Code generation</strong> — generate functions/modules from a description or from tests.</li>
+            <li><strong>Refactoring</strong> — rename, split functions, improve structure while preserving behavior.</li>
+            <li><strong>Documentation</strong> — generate comments, docstrings, explanations.</li>
+            <li><strong>Sample data</strong> — create valid sample data for testing/development.</li>
+            <li><strong>Modernize legacy code</strong> — suggest updating old code to newer syntax/patterns.</li>
           </ul>
         </section>
 
         <section id="ghi-chu-test">
-          <h2><span class="kicker">Ghi chú</span>Test và edge case</h2>
-          <p>Copilot có thể sinh <em class="term">unit tests</em> và <em class="term">integration tests</em> cho
-            code được chọn. Khi viết test, nó còn gợi ý <strong>edge cases</strong> (đầu vào rỗng, null, giá trị biên)
-            và viết <strong>assertions</strong> tương ứng. Bạn vẫn phải đọc và chạy test để xác nhận.</p>
+          <h2><span class="kicker">Notes</span>Testing and edge cases</h2>
+          <p>Copilot can generate <em class="term">unit tests</em> and <em class="term">integration tests</em> for the
+            selected code. While writing tests, it also suggests <strong>edge cases</strong> (empty input, null,
+            boundary values) and writes the corresponding <strong>assertions</strong>. You still need to read and run
+            the tests to confirm.</p>
         </section>
 
         <section id="ghi-chu-security">
-          <h2><span class="kicker">Ghi chú</span>Bảo mật và hiệu năng</h2>
-          <p>Copilot có thể <strong>gợi ý cải thiện bảo mật</strong> (validate input, tránh injection) và
-            <strong>tối ưu hiệu năng</strong> (giảm vòng lặp, dùng cấu trúc dữ liệu hợp lý). Đây chỉ là gợi ý —
-            không thay thế việc quét bảo mật và review.</p>
+          <h2><span class="kicker">Notes</span>Security and performance</h2>
+          <p>Copilot can <strong>suggest security improvements</strong> (validate input, avoid injection) and
+            <strong>performance optimizations</strong> (reduce loops, use appropriate data structures). These are
+            suggestions — they don't replace security scanning and review.</p>
         </section>
 
         <section>
-          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <h2><span class="kicker">Practice</span>Try it</h2>
           <ul class="drills">
-            <li><b>1. Sinh test</b>Chọn một hàm, dùng <code>/tests</code>, đọc và chạy test sinh ra.</li>
-            <li><b>2. Refactor</b>Yêu cầu Copilot tách một hàm dài thành các hàm nhỏ, so sánh hành vi trước/sau.</li>
-            <li><b>3. Edge case</b>Hỏi Copilot "hàm này có edge case nào?", rồi viết test cho từng case.</li>
-            <li><b>4. Bảo mật</b>Đưa đoạn code xử lý input, hỏi Copilot chỉ ra rủi ro bảo mật.</li>
+            <li><b>1. Generate tests</b>Select a function, use <code>/tests</code>, read and run the generated tests.</li>
+            <li><b>2. Refactor</b>Ask Copilot to split a long function, then compare behavior before/after.</li>
+            <li><b>3. Edge cases</b>Ask "what edge cases does this function have?", then write a test for each.</li>
+            <li><b>4. Security</b>Show Copilot input-handling code and ask it to point out security risks.</li>
           </ul>
         </section>
 
         <section id="cheat-sheet" class="cheatsheet">
-          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <h2><span class="kicker">One page</span>Cheat sheet</h2>
           <div class="cheat-grid">
             <div>
               <h3>Code</h3>
@@ -96,7 +97,7 @@
               </ul>
             </div>
             <div>
-              <h3>Test</h3>
+              <h3>Testing</h3>
               <ul class="cheat-list">
                 <li>Unit + integration tests</li>
                 <li>Edge cases</li>
@@ -104,48 +105,48 @@
               </ul>
             </div>
             <div>
-              <h3>An toàn</h3>
+              <h3>Security</h3>
               <ul class="cheat-list">
                 <li>Security improvements</li>
                 <li>Performance optimizations</li>
-                <li>Luôn review + test</li>
+                <li>Always review + test</li>
               </ul>
             </div>
           </div>
         </section>
 
         <section class="extend">
-          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <h2><span class="kicker">Beyond the book</span>Exam tips <span class="tag">extra</span></h2>
           <ul>
-            <li>Ghi nhớ nhóm từ khóa: generate/refactor/document/sample data/modernize.</li>
-            <li>Câu hỏi "Copilot giúp gì về test" — chọn cả unit lẫn integration, edge case, assertions.</li>
+            <li>Memorize the keyword group: generate/refactor/document/sample data/modernize.</li>
+            <li>"How does Copilot help with testing" — pick unit + integration, edge cases, assertions.</li>
           </ul>
         </section>
 
         <div class="mark-read" style="margin-top:32px">
-          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
-          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+          <button class="btn" id="mark-read" type="button">Mark as read</button>
+          <span class="read-note" id="read-note">Mark the chapter as read to track your progress.</span>
         </div>
 
         <section class="quiz panel" id="quiz" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
-            <span class="badge" id="quiz-meta">Câu 1</span>
+            <h2><span class="kicker">Check</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Q1</span>
           </div>
           <div id="quiz-body"></div>
         </section>
 
         <section class="cards" id="flashcards" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <h2><span class="kicker">Active recall</span>Flashcards</h2>
             <span class="badge" id="cards-meta">1/14</span>
           </div>
           <div class="panel" id="cards-body"></div>
         </section>
 
         <nav class="pager">
-          <a href="ch06-prompt-engineering.html"><span>Chương trước</span><strong>6 · Prompt engineering</strong></a>
-          <a class="next" href="ch08-privacy.html"><span>Chương tiếp</span><strong>8 · Privacy &amp; safeguards</strong></a>
+          <a href="ch06-prompt-engineering.html"><span>Previous chapter</span><strong>6 · Prompt engineering</strong></a>
+          <a class="next" href="ch08-privacy.html"><span>Next chapter</span><strong>8 · Privacy &amp; safeguards</strong></a>
         </nav>
       </article>
     </div>

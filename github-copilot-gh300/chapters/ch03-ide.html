@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Chương 3 · Copilot trong IDE — GH-300</title>
+  <title>Chapter 3 · Copilot in the IDE — GH-300</title>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/shell.css">
 </head>
@@ -13,91 +13,90 @@
     <aside class="sidebar" id="sidebar"></aside>
     <div class="main">
       <header class="topbar">
-        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Mở mục lục">☰</button>
-        <span class="crumb">Chương 03 / 08</span>
-        <button class="btn small" id="print-cheat" type="button">In cheat sheet</button>
-        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Sáng</span></button>
+        <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
+        <span class="crumb">Chapter 03 / 08</span>
+        <button class="btn small" id="print-cheat" type="button">Print cheat sheet</button>
+        <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Light</span></button>
       </header>
 
       <article class="chapter">
-        <div class="eyebrow">Chương 03 <span>Copilot in the IDE</span></div>
-        <h1>Copilot trong IDE</h1>
-        <p class="lead">Copilot hoạt động trong VS Code, Visual Studio, JetBrains, Xcode và Eclipse. Biết cách
-          kích hoạt và gọi đúng tính năng (inline, chat, agent mode) là phần lớn nhất của đề thi.</p>
+        <div class="eyebrow">Chapter 03 <span>Copilot in the IDE</span></div>
+        <h1>Copilot in the IDE</h1>
+        <p class="lead">Copilot works in VS Code, Visual Studio, JetBrains, Xcode, and Eclipse. Knowing how to enable
+          it and trigger the right feature (inline, chat, agent mode) is the biggest part of the exam.</p>
 
         <div class="big-picture">
-          <div class="eyebrow">Bức tranh lớn</div>
-          <p>Ba cách tương tác chính trong IDE: gợi ý inline khi gõ, hội thoại trong Chat, và giao task cho
-            agent mode tự thao tác nhiều bước.</p>
+          <div class="eyebrow">The big picture</div>
+          <p>Three main ways to interact in the IDE: inline suggestions as you type, conversation in Chat, and handing
+            a goal to agent mode for multi-step work.</p>
         </div>
 
         <section>
-          <h2><span class="kicker">Tự kiểm tra</span>5 điều bắt buộc nhớ</h2>
+          <h2><span class="kicker">Recall check</span>5 things you must remember</h2>
           <ol class="recall">
-            <li><details><summary>Copilot chạy trên những IDE nào?</summary>
+            <li><details><summary>Which IDEs support Copilot?</summary>
               <p>VS Code, Visual Studio, JetBrains, Xcode, Eclipse.</p></details></li>
-            <li><details><summary>Bốn cách kích hoạt Copilot trong IDE?</summary>
-              <p>Inline suggestions, Chat, CLI, và Agent mode.</p></details></li>
-            <li><details><summary>Inline suggestions gồm gì?</summary>
-              <p>Code completions theo thời gian thực và Next edit suggestions.</p></details></li>
-            <li><details><summary>Slash command dùng để làm gì?</summary>
-              <p>Gọi hành động nhanh trong Chat như /fix, /tests, /explain.</p></details></li>
-            <li><details><summary>Content exclusions để làm gì?</summary>
-              <p>Chặn Copilot truy cập các file/repo cụ thể bạn không muốn nó đọc.</p></details></li>
+            <li><details><summary>The four ways to trigger Copilot in the IDE?</summary>
+              <p>Inline suggestions, Chat, CLI, and Agent mode.</p></details></li>
+            <li><details><summary>What do inline suggestions include?</summary>
+              <p>Real-time code completions and Next edit suggestions.</p></details></li>
+            <li><details><summary>What are slash commands for?</summary>
+              <p>Quick actions in Chat such as /fix, /tests, /explain.</p></details></li>
+            <li><details><summary>What are content exclusions for?</summary>
+              <p>Blocking Copilot from reading specific files/repos you don't want it to see.</p></details></li>
           </ol>
         </section>
 
         <section id="ghi-chu-enable">
-          <h2><span class="kicker">Ghi chú</span>Bật Copilot trong IDE</h2>
-          <p>Copilot được cung cấp qua extension/plugin của từng IDE. Sau khi cài, bạn <strong>đăng nhập bằng tài
-            khoản GitHub</strong> có quyền dùng Copilot (gói cá nhân, hoặc seat do tổ chức cấp). Với thành viên tổ
-            chức, admin phải gán seat trước.</p>
-          <p>Các thành phần thường cần bật: <em class="term">inline suggestions</em> (completions), Copilot Chat,
-            và (tùy gói) Agent mode. Chính sách của tổ chức có thể tắt/bật từng tính năng.</p>
+          <h2><span class="kicker">Notes</span>Enabling Copilot in the IDE</h2>
+          <p>Copilot is provided via an extension/plugin for each IDE. After installing, you <strong>sign in with a
+            GitHub account</strong> that has Copilot access (an individual plan, or a seat assigned by your
+            organization). For organization members, an admin must assign a seat first.</p>
+          <p>Components you typically enable: <em class="term">inline suggestions</em> (completions), Copilot Chat, and
+            (depending on the plan) Agent mode. Organization policies can enable/disable each feature.</p>
         </section>
 
         <section id="ghi-chu-trigger">
-          <h2><span class="kicker">Ghi chú</span>Các cách kích hoạt</h2>
+          <h2><span class="kicker">Notes</span>Ways to trigger</h2>
           <table>
-            <thead><tr><th>Cách</th><th>Mô tả</th></tr></thead>
+            <thead><tr><th>Way</th><th>Description</th></tr></thead>
             <tbody>
-              <tr><td>Inline suggestions</td><td>Gợi ý code ngay khi gõ; gồm code completions và Next edit suggestions (gợi ý sửa tiếp theo).</td></tr>
-              <tr><td>Copilot Chat</td><td>Hội thoại hỏi/đáp, giải thích, viết code theo yêu cầu; có inline chat ngay trong editor.</td></tr>
-              <tr><td>CLI</td><td>Dùng Copilot từ terminal (cài <code>gh copilot</code>).</td></tr>
-              <tr><td>Agent mode</td><td>Đưa mục tiêu, agent tự tìm file, sửa code, chạy lệnh nhiều bước rồi báo cáo để bạn duyệt.</td></tr>
+              <tr><td>Inline suggestions</td><td>Code suggested as you type; includes code completions and Next edit suggestions.</td></tr>
+              <tr><td>Copilot Chat</td><td>Conversational Q&amp;A, explanations, code generation; inline chat inside the editor.</td></tr>
+              <tr><td>CLI</td><td>Use Copilot from the terminal (install <code>gh copilot</code>).</td></tr>
+              <tr><td>Agent mode</td><td>Give a goal; the agent finds files, edits code, and runs commands over multiple steps, then reports for your review.</td></tr>
             </tbody>
           </table>
         </section>
 
         <section id="ghi-chu-chat">
-          <h2><span class="kicker">Ghi chú</span>Copilot Chat trong IDE</h2>
-          <p>Chat cho phép hỏi về code hiện tại, yêu cầu sửa/refactor, sinh test. Các công cụ nâng cao:</p>
+          <h2><span class="kicker">Notes</span>Copilot Chat in the IDE</h2>
+          <p>Chat lets you ask about the current code, request edits/refactors, and generate tests. Advanced tools:</p>
           <ul>
-            <li><strong>Slash commands</strong> — hành động nhanh: <code>/fix</code>, <code>/tests</code>,
-              <code>/explain</code>, <code>/doc</code>.</li>
-            <li><strong>Inline chat</strong> — gõ lệnh ngay trong file, không rời editor.</li>
-            <li><strong>Gắn ngữ cảnh</strong> — dùng <code>@</code> để gắn file, symbol; <code>#</code> để gắn issue/PR.</li>
-            <li><strong>Copilot Chat skills</strong> — (không có ở gói Free) cho phép mở rộng khả năng chat.</li>
+            <li><strong>Slash commands</strong> — quick actions: <code>/fix</code>, <code>/tests</code>, <code>/explain</code>, <code>/doc</code>.</li>
+            <li><strong>Inline chat</strong> — type commands right in the file, without leaving the editor.</li>
+            <li><strong>Attach context</strong> — use <code>@</code> to attach files/symbols; <code>#</code> for issues/PRs.</li>
+            <li><strong>Copilot Chat skills</strong> — (not in Free) extend chat capabilities.</li>
           </ul>
-          <div class="callout">Nhớ mở đúng file để Copilot dùng chúng làm ngữ cảnh; đóng các file không liên quan
-            để gợi ý chuẩn hơn.</div>
+          <div class="callout">Keep the right files open so Copilot uses them as context; close irrelevant files for
+            more accurate suggestions.</div>
         </section>
 
         <section>
-          <h2><span class="kicker">Thực hành</span>Áp lên máy</h2>
+          <h2><span class="kicker">Practice</span>Try it</h2>
           <ul class="drills">
-            <li><b>1. Bật &amp; đăng nhập</b>Cài extension Copilot cho IDE của bạn, đăng nhập GitHub, xác nhận inline suggestions chạy.</li>
-            <li><b>2. Gọi inline</b>Gõ comment mô tả hàm rồi để Copilot sinh code; thử Next edit suggestions.</li>
-            <li><b>3. Dùng chat + slash</b>Chọn một hàm, mở Chat, chạy <code>/explain</code> rồi <code>/tests</code>.</li>
-            <li><b>4. Thử agent mode</b>Nêu một task nhỏ, xem agent tự tìm file và sửa, rồi review từng thay đổi.</li>
+            <li><b>1. Enable &amp; sign in</b>Install the Copilot extension, sign in to GitHub, confirm inline suggestions run.</li>
+            <li><b>2. Trigger inline</b>Type a comment describing a function and let Copilot generate it; try Next edit suggestions.</li>
+            <li><b>3. Chat + slash</b>Select a function, open Chat, run <code>/explain</code> then <code>/tests</code>.</li>
+            <li><b>4. Try agent mode</b>Give a small task, watch the agent find and edit files, then review each change.</li>
           </ul>
         </section>
 
         <section id="cheat-sheet" class="cheatsheet">
-          <h2><span class="kicker">Một trang</span>Cheat sheet</h2>
+          <h2><span class="kicker">One page</span>Cheat sheet</h2>
           <div class="cheat-grid">
             <div>
-              <h3>IDE hỗ trợ</h3>
+              <h3>Supported IDEs</h3>
               <ul class="cheat-list">
                 <li>VS Code</li>
                 <li>Visual Studio</li>
@@ -106,7 +105,7 @@
               </ul>
             </div>
             <div>
-              <h3>Cách kích hoạt</h3>
+              <h3>Ways to trigger</h3>
               <ul class="cheat-list">
                 <li>Inline (completions + Next edit)</li>
                 <li>Chat (panel + inline)</li>
@@ -118,45 +117,45 @@
               <h3>Chat</h3>
               <ul class="cheat-list">
                 <li>/fix · /tests · /explain · /doc</li>
-                <li>@ gắn file · # gắn issue/PR</li>
-                <li>Skills (không có ở Free)</li>
+                <li>@ attach files · # attach issues/PRs</li>
+                <li>Skills (not in Free)</li>
               </ul>
             </div>
           </div>
         </section>
 
         <section class="extend">
-          <h2><span class="kicker">Ngoài sách</span>Mẹo thi <span class="tag">bổ sung</span></h2>
+          <h2><span class="kicker">Beyond the book</span>Exam tips <span class="tag">extra</span></h2>
           <ul>
-            <li>Phân biệt rõ: inline = gợi ý tức thời, chat = hội thoại, agent = tự làm nhiều bước.</li>
-            <li>"Next edit suggestions" là khái niệm mới — dễ xuất hiện trong câu hỏi inline.</li>
+            <li>Distinguish clearly: inline = immediate suggestion, chat = conversation, agent = multi-step work.</li>
+            <li>"Next edit suggestions" is a newer concept — likely to appear in inline questions.</li>
           </ul>
         </section>
 
         <div class="mark-read" style="margin-top:32px">
-          <button class="btn" id="mark-read" type="button">Đánh dấu đã đọc</button>
-          <span class="read-note" id="read-note">Đọc xong chương thì đánh dấu để tính tiến độ.</span>
+          <button class="btn" id="mark-read" type="button">Mark as read</button>
+          <span class="read-note" id="read-note">Mark the chapter as read to track your progress.</span>
         </div>
 
         <section class="quiz panel" id="quiz" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Kiểm tra</span>Quiz</h2>
-            <span class="badge" id="quiz-meta">Câu 1</span>
+            <h2><span class="kicker">Check</span>Quiz</h2>
+            <span class="badge" id="quiz-meta">Q1</span>
           </div>
           <div id="quiz-body"></div>
         </section>
 
         <section class="cards" id="flashcards" style="margin-top:34px">
           <div class="panel-head">
-            <h2><span class="kicker">Ghi nhớ chủ động</span>Flashcards</h2>
+            <h2><span class="kicker">Active recall</span>Flashcards</h2>
             <span class="badge" id="cards-meta">1/14</span>
           </div>
           <div class="panel" id="cards-body"></div>
         </section>
 
         <nav class="pager">
-          <a href="ch02-responsible.html"><span>Chương trước</span><strong>2 · Dùng có trách nhiệm</strong></a>
-          <a class="next" href="ch04-cli-advanced.html"><span>Chương tiếp</span><strong>4 · CLI &amp; nâng cao</strong></a>
+          <a href="ch02-responsible.html"><span>Previous chapter</span><strong>2 · Using responsibly</strong></a>
+          <a class="next" href="ch04-cli-advanced.html"><span>Next chapter</span><strong>4 · CLI &amp; advanced</strong></a>
         </nav>
       </article>
     </div>

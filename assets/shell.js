@@ -190,8 +190,8 @@
     const btn = document.getElementById("theme-toggle");
     if (btn) {
       const label = btn.querySelector(".theme-label");
-      if (label) label.textContent = theme === "light" ? "Tối" : "Sáng";
-      else btn.textContent = theme === "light" ? "Tối" : "Sáng";
+      if (label) label.textContent = theme === "light" ? "Dark" : "Light";
+      else btn.textContent = theme === "light" ? "Dark" : "Light";
     }
   }
 
@@ -228,9 +228,9 @@
     if (BOOK) {
       html.push('<a class="brand" href="' + bookHomeHref() + '">');
       html.push('<span class="brand-mark">GT</span>');
-      html.push('<span class="brand-name">' + (BOOK.shortTitle || BOOK.title) + '<span class="brand-sub">' + BOOK.author + " · sổ tay học</span></span>");
+      html.push('<span class="brand-name">' + (BOOK.shortTitle || BOOK.title) + '<span class="brand-sub">' + BOOK.author + " · study notes</span></span>");
       html.push("</a>");
-      html.push('<div class="nav-label">' + BOOK.chapters.length + " chương</div>");
+      html.push('<div class="nav-label">' + BOOK.chapters.length + " chapters</div>");
       BOOK.chapters.forEach((ch) => {
         const pct = GT.progress.pct(ch.id);
         const cls = ["nav-item"];
@@ -242,24 +242,24 @@
         html.push("</a>");
       });
       if (BOOK.hasGlossary !== false) {
-        html.push('<div class="nav-label">Tham khảo</div>');
+        html.push('<div class="nav-label">Reference</div>');
         const glossaryClass = page === "glossary" ? "nav-item active" : "nav-item";
         html.push('<a class="' + glossaryClass + '" href="' + glossaryHref() + '">');
         html.push('<span class="nav-num">A–Z</span>');
-        html.push('<span class="nav-title">Tra cứu thuật ngữ</span>');
+        html.push('<span class="nav-title">Glossary</span>');
         html.push("</a>");
       }
-      html.push('<div class="nav-label">Thư viện</div>');
+      html.push('<div class="nav-label">Library</div>');
       html.push('<a class="nav-item" href="' + libraryHref() + '">');
       html.push('<span class="nav-num">↩</span>');
-      html.push('<span class="nav-title">Tất cả sách</span>');
+      html.push('<span class="nav-title">All certificates</span>');
       html.push("</a>");
     } else if (LIBRARY) {
       html.push('<a class="brand" href="index.html">');
       html.push('<span class="brand-mark">Cert</span>');
-      html.push('<span class="brand-name">Thư viện chứng chỉ<span class="brand-sub">Ôn thi offline trên điện thoại</span></span>');
+      html.push('<span class="brand-name">Certification Library<span class="brand-sub">Offline exam prep</span></span>');
       html.push("</a>");
-      html.push('<div class="nav-label">' + LIBRARY.length + " sách</div>");
+      html.push('<div class="nav-label">' + LIBRARY.length + " certs</div>");
       LIBRARY.forEach((bk) => {
         const cls = ["nav-item"];
         if (bk.id === bookId) cls.push("active");
@@ -300,8 +300,8 @@
       const current = GT.progress.chapter(id);
       if (current && current.read) {
         btn.disabled = true;
-        btn.textContent = "Đã đọc";
-        if (label) label.textContent = "Tiến độ chương đã được ghi nhận.";
+        btn.textContent = "Read";
+        if (label) label.textContent = "Chapter progress saved.";
       }
     }
     btn.addEventListener("click", () => {
@@ -346,13 +346,13 @@
         if (GT.srs.get(card.id)) reviewed += 1;
       });
     });
-    if (overallMeta) overallMeta.textContent = "Đã ôn " + reviewed + "/" + totalCards + " thẻ";
+    if (overallMeta) overallMeta.textContent = "Reviewed " + reviewed + "/" + totalCards + " cards";
 
     const meta = GT.progress.meta();
-    if (streak) streak.textContent = (meta.streak || 0) + " ngày";
+    if (streak) streak.textContent = (meta.streak || 0) + " day streak";
 
     const dueTotal = built.reduce((sum, ch) => sum + dueCards(ch).length, 0);
-    if (reviewCount) reviewCount.innerHTML = dueTotal + ' <small>thẻ đến hạn</small>';
+    if (reviewCount) reviewCount.innerHTML = dueTotal + ' <small>cards due</small>';
     if (reviewBtn) {
       if (dueTotal === 0) {
         reviewBtn.hidden = true;
@@ -376,10 +376,10 @@
       const cls = ["ch-card"];
       if (ch.built === false) cls.push("pending");
       const badge = ch.built === false
-        ? '<span class="badge">Chưa có nội dung</span>'
+        ? '<span class="badge">Not built yet</span>'
         : item.quizBest !== undefined
-          ? '<span class="badge">Quiz tốt nhất ' + item.quizBest + '%</span>'
-          : '<span class="badge">Chưa làm quiz</span>';
+          ? '<span class="badge">Best quiz ' + item.quizBest + '%</span>'
+          : '<span class="badge">No quiz yet</span>';
       return '<a class="' + cls.join(" ") + '" href="' + chapterHref(ch) + '" data-search="' +
         (ch.title + " " + ch.vi + " " + ch.keywords.join(" ")).toLowerCase() + '">' +
         '<div class="ch-card-head"><span class="ch-card-num">' + String(ch.num).padStart(2, "0") + "</span>" +
@@ -411,13 +411,13 @@
 
     function card(bk) {
       const pct = GT.bookPct(bk);
-      const action = pct > 0 ? "Học tiếp" : "Bắt đầu";
+      const action = pct > 0 ? "Continue" : "Start";
       const initials = (bk.code || "BK");
       return '<a class="book-card" href="' + bk.slug + '/index.html" data-search="' +
         (bk.title + " " + bk.author + " " + (bk.keywords || []).join(" ")).toLowerCase() + '">' +
         '<span class="book-cover">' + initials + "</span>" +
         '<div class="book-body"><div class="book-title">' + bk.title + "</div>" +
-        '<div class="book-author">' + bk.author + " · " + bk.chapters + " chương</div>" +
+        '<div class="book-author">' + bk.author + " · " + bk.chapters + " chapters</div>" +
         '<div class="book-foot"><span>' + pct + '%</span><span class="ch-card-bar"><span style="width:' + pct + '%"></span></span></div>' +
         '<span class="badge">' + action + (pct > 0 && pct < 100 ? " · " + pct + "%" : "") + "</span></div></a>";
     }
@@ -482,7 +482,7 @@
       const clone = h2.cloneNode(true);
       const kicker = clone.querySelector(".kicker");
       if (kicker) kicker.remove();
-      const label = clone.textContent.trim() || ("Mục " + (i + 1));
+      const label = clone.textContent.trim() || ("Section " + (i + 1));
       if (!sec.id) {
         let base = "muc-" + (slugify(label) || i);
         let id = base;
@@ -499,20 +499,20 @@
 
     const tabbar = document.createElement("nav");
     tabbar.className = "tabbar";
-    tabbar.setAttribute("aria-label", "Điều hướng nhanh");
+    tabbar.setAttribute("aria-label", "Quick navigation");
     tabbar.innerHTML =
-      '<a href="' + bookHomeHref() + '"><span class="tab-icon">▤</span><span>Sách</span></a>' +
-      '<button type="button" id="tab-toc"><span class="tab-icon">☰</span><span>Mục lục</span></button>' +
+      '<a href="' + bookHomeHref() + '"><span class="tab-icon">▤</span><span>Book</span></a>' +
+      '<button type="button" id="tab-toc"><span class="tab-icon">☰</span><span>Contents</span></button>' +
       '<a href="#quiz"><span class="tab-icon">?</span><span>Quiz</span></a>' +
-      '<a href="#flashcards"><span class="tab-icon">◧</span><span>Thẻ</span></a>';
+      '<a href="#flashcards"><span class="tab-icon">◧</span><span>Cards</span></a>';
     document.body.appendChild(tabbar);
 
     const sheet = document.createElement("div");
     sheet.className = "sheet";
     sheet.id = "toc-sheet";
     sheet.innerHTML = '<div class="sheet-backdrop" data-close="1"></div>' +
-      '<div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Mục lục chương">' +
-      '<div class="sheet-head"><strong>Mục lục</strong><button type="button" class="btn ghost small" data-close="1">Đóng</button></div>' +
+      '<div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Contents chapters">' +
+      '<div class="sheet-head"><strong>Contents</strong><button type="button" class="btn ghost small" data-close="1">Close</button></div>' +
       '<div class="sheet-body"><ol class="toc-list">' +
       toc.map((item) => '<li><a href="#' + item.id + '">' + item.label + "</a></li>").join("") +
       "</ol></div></div>";
@@ -548,8 +548,8 @@
     }
     const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
     host.textContent = isIos
-      ? "Cài lên màn hình chính: Safari → nút Chia sẻ → Thêm vào MH chính để học offline."
-      : "Mở menu trình duyệt → Cài đặt / Thêm vào màn hình chính để dùng offline.";
+      ? "Add to Home Screen: Safari → Share → Add to Home Screen to study offline."
+      : "Open the browser menu → Install / Add to Home Screen to use offline.";
     host.hidden = false;
   }
 
