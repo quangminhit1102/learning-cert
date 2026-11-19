@@ -627,6 +627,7 @@
       "</div>" +
       '<p class="read-note sync-feedback" id="sync-note" hidden></p>' +
       "</div>" +
+      '<div class="modal-version">Version v' + (window.APP_VERSION || "?") + "</div>" +
       "</div></div>";
     document.body.appendChild(modal);
 
@@ -776,6 +777,8 @@
 
   function init() {
     initTheme();
+    const versionEl = document.getElementById("app-version");
+    if (versionEl) versionEl.textContent = "v" + (window.APP_VERSION || "?");
     if (bookId) GT.progress.bumpStreak();
     renderNav();
     initNavToggle();

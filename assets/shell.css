@@ -1157,3 +1157,5 @@ body.has-tabbar .account-fab { bottom: calc(76px + env(safe-area-inset-bottom));
 }
 
 .opt.selected { border-color: var(--info); background: color-mix(in srgb, var(--info) 14%, var(--bg-soft)); }
+
+.modal-version { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--muted); text-align: right; }
