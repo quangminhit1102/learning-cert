@@ -1,4 +1,4 @@
-const VERSION = "2026-11-18-16";
+const VERSION = "2026-11-18-17";
 const CACHE = "lc-static-" + VERSION;
 const BOOK = "github-copilot-gh300/";
 const CHAPTERS = [

@@ -46,6 +46,23 @@
     return arr;
   }
 
+  function shuffleOrder(n) {
+    const order = [];
+    for (let i = 0; i < n; i += 1) order.push(i);
+    for (let i = n - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = order[i];
+      order[i] = order[j];
+      order[j] = tmp;
+    }
+    if (n > 1) {
+      let same = true;
+      for (let i = 0; i < n; i += 1) { if (order[i] !== i) { same = false; break; } }
+      if (same) { const tmp = order[0]; order[0] = order[n - 1]; order[n - 1] = tmp; }
+    }
+    return order;
+  }
+
   function normalize(value) {
     return String(value).toLowerCase().trim();
   }
@@ -121,13 +138,17 @@
     document.getElementById("mock-meta").textContent = (index + 1) + "/" + total;
 
     let html = '<p class="q-text">' + q.q + "</p>";
+    let order = [];
+    if (q.type === "mcq" || q.type === "multi") {
+      order = shuffleOrder(q.options.length);
+    }
     if (q.type === "mcq") {
-      html += '<div class="opts">' + q.options.map((opt, i) =>
-        '<button type="button" class="opt" data-i="' + i + '"><span class="key">' + (i + 1) + "</span><span>" + opt + "</span></button>").join("") + "</div>";
+      html += '<div class="opts">' + order.map((orig, i) =>
+        '<button type="button" class="opt" data-i="' + orig + '"><span class="key">' + (i + 1) + "</span><span>" + q.options[orig] + "</span></button>").join("") + "</div>";
     } else if (q.type === "multi") {
       html += '<div class="read-note" style="margin:0 0 10px">Select all that apply.</div>' +
-        '<div class="opts">' + q.options.map((opt, i) =>
-          '<button type="button" class="opt" data-i="' + i + '"><span class="key">' + (i + 1) + "</span><span>" + opt + "</span></button>").join("") + "</div>" +
+        '<div class="opts">' + order.map((orig, i) =>
+          '<button type="button" class="opt" data-i="' + orig + '"><span class="key">' + (i + 1) + "</span><span>" + q.options[orig] + "</span></button>").join("") + "</div>" +
         '<div class="quiz-foot"><span class="spacer"></span><button class="btn primary" type="button" id="q-check">Check</button></div>';
     } else {
       html += '<div class="fill-row"><input id="q-fill" type="text" autocomplete="off" spellcheck="false" placeholder="Type answer..."><button class="btn primary" type="button" id="q-check">Check</button></div>';
@@ -142,19 +163,19 @@
       opts.forEach((btn) => {
         btn.addEventListener("click", () => {
           if (answered) return;
-          const i = Number(btn.dataset.i);
-          if (selected.has(i)) { selected.delete(i); btn.classList.remove("selected"); }
-          else { selected.add(i); btn.classList.add("selected"); }
+          const orig = Number(btn.dataset.i);
+          if (selected.has(orig)) { selected.delete(orig); btn.classList.remove("selected"); }
+          else { selected.add(orig); btn.classList.add("selected"); }
         });
       });
       const check = document.getElementById("q-check");
       check.addEventListener("click", () => {
         const chosen = Array.from(selected);
         const correct = isCorrect(q, chosen);
-        const expected = q.answer.slice();
-        opts.forEach((node, i) => {
-          const isSel = selected.has(i);
-          const isExp = expected.indexOf(i) !== -1;
+        opts.forEach((node) => {
+          const orig = Number(node.dataset.i);
+          const isSel = selected.has(orig);
+          const isExp = q.answer.indexOf(orig) !== -1;
           if (isExp) node.classList.add("correct");
           else if (isSel) node.classList.add("wrong");
           node.disabled = true;
@@ -165,12 +186,14 @@
       opts.forEach((btn) => {
         btn.addEventListener("click", () => {
           if (answered) return;
-          const i = Number(btn.dataset.i);
-          const correct = isCorrect(q, i);
+          const orig = Number(btn.dataset.i);
+          const correct = isCorrect(q, orig);
           if (correct) btn.classList.add("correct");
           else {
             btn.classList.add("wrong");
-            opts[q.answer].classList.add("correct");
+            opts.forEach((node) => {
+              if (Number(node.dataset.i) === q.answer) node.classList.add("correct");
+            });
           }
           opts.forEach((node) => { node.disabled = true; });
           markAnswer(correct, q);
