@@ -3,12 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Certification Library">
-  <link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
   <title>Chapter 2 · Using Copilot Responsibly — GH-300</title>
-  <link rel="manifest" href="../../manifest.webmanifest">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/shell.css">
 </head>
@@ -21,82 +16,159 @@
         <button class="btn ghost small" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
         <span class="crumb">Chapter 02 / 08</span>
         <button class="btn small" id="print-cheat" type="button">Print cheat sheet</button>
-        <button class="btn ghost small account-btn" id="account-btn" type="button" aria-label="Account"></button>
-        <button class="btn ghost small" id="settings-toggle" type="button" aria-label="Settings">⚙</button>
         <button class="btn small" id="theme-toggle" type="button"><span class="theme-label">Light</span></button>
       </header>
 
       <article class="chapter">
         <div class="eyebrow">Chapter 02 <span>Using Copilot Responsibly</span></div>
         <h1>Using Copilot responsibly</h1>
-        <p class="lead">The core idea: Copilot is an assistant, not a source of truth. Every output must be validated
-          — this section is 15–20% of the exam.</p>
+        <p class="lead">Copilot is a proposal generator, not a source of truth. This chapter (Domain 1, 15–20% of the
+          exam) is about knowing the risks of generative AI, applying the right mitigation, and always validating
+          output before relying on it.</p>
 
         <div class="big-picture">
-          <div class="eyebrow">The big picture</div>
-          <p>Generative AI has inherent risks; using it responsibly means understanding those risks, applying
-            mitigations, and always validating output before relying on it.</p>
+          <div class="eyebrow">Core idea</div>
+          <p>Responsible use = understand the risk + choose the matched mitigation + validate before you depend on
+            the output. Ethics (the six principles) guides intent; product controls (exclusions, filters, review)
+            are how you operate responsibly.</p>
         </div>
+
+        <section id="ghi-chu-muc-tieu">
+          <h2><span class="kicker">Objectives</span>Official exam scope (Domain 1)</h2>
+          <ul>
+            <li>Describe risks and limitations of generative AI tools.</li>
+            <li>Describe ethical and responsible AI usage.</li>
+            <li>Identify potential harms and mitigation strategies of AI usage.</li>
+            <li>Explain the need to validate AI output.</li>
+            <li>Identify how to operate GitHub Copilot responsibly.</li>
+          </ul>
+        </section>
 
         <section>
           <h2><span class="kicker">Recall check</span>5 things you must remember</h2>
           <ol class="recall">
-            <li><details><summary>Why validate AI output?</summary>
-              <p>LLMs can hallucinate and produce wrong or insecure code; you are responsible for the code you ship.</p></details></li>
-            <li><details><summary>The three main risk groups of generative AI?</summary>
-              <p>Incorrect information (hallucination), insecure code, and bias/copyright issues.</p></details></li>
-            <li><details><summary>Common mitigations?</summary>
-              <p>Human review, writing tests, security scanning, content exclusions, public-code filtering.</p></details></li>
-            <li><details><summary>What is "operating Copilot responsibly"?</summary>
-              <p>Always review, test, and confirm correctness before relying on results.</p></details></li>
-            <li><details><summary>How should you treat AI-generated code?</summary>
-              <p>Like a colleague's work: assess, test, confirm — never merge unconditionally.</p></details></li>
+            <li><details><summary>The six Responsible AI principles?</summary>
+              <p>Fairness · Reliability &amp; Safety · Privacy &amp; Security · Inclusiveness · Transparency · Accountability.</p></details></li>
+            <li><details><summary>The validation workflow, in order?</summary>
+              <p>Review logic → verify APIs → verify dependencies → compile/run → test (normal/boundary/negative/error) → scan → human review.</p></details></li>
+            <li><details><summary>Content exclusion vs. public-code filter?</summary>
+              <p>Exclusions block what Copilot can READ (input); the public-code filter blocks suggestions matching public code (output).</p></details></li>
+            <li><details><summary>Who is accountable for AI-generated code?</summary>
+              <p>You — the human developer. Copilot assists; humans remain responsible.</p></details></li>
+            <li><details><summary>First step when Copilot suggests an unfamiliar API?</summary>
+              <p>Verify it against official documentation before using it.</p></details></li>
           </ol>
         </section>
 
         <section id="ghi-chu-nguyen-tac">
-          <h2><span class="kicker">Notes</span>Responsible AI principles</h2>
-          <p>Responsible AI use requires understanding the <em class="term">risks and limitations</em> of generative AI:</p>
-          <ul>
-            <li><strong>Hallucination</strong> — plausible but factually wrong output (non-existent APIs, wrong syntax).</li>
-            <li><strong>Insecure code</strong> — suggestions may contain vulnerabilities (injection, missing input validation).</li>
-            <li><strong>Bias</strong> — output can reflect bias in training data.</li>
-            <li><strong>Copyright &amp; licensing</strong> — code may match public code; watch its origin.</li>
-          </ul>
-          <p>Final responsibility rests with you: you review and own every line you apply.</p>
+          <h2><span class="kicker">Notes</span>The six Responsible AI principles</h2>
+          <p>These six principles (from the Microsoft Responsible AI Standard) guide <em>how</em> you should use AI.
+            For each: definition, a recognition keyword, an exam-style example, and the principle it is most easily
+            confused with.</p>
+          <table>
+            <thead><tr><th>Principle</th><th>Definition</th><th>Keyword</th><th>Example</th><th>Contrast</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Fairness</strong></td><td>Equitable outcomes between groups, without unfair advantage or disadvantage.</td><td>equitable groups</td><td>A suggestion that ranks names from one region as "lower quality".</td><td>Inclusiveness</td></tr>
+              <tr><td><strong>Reliability &amp; Safety</strong></td><td>Consistent, safe operation under expected conditions.</td><td>safe &amp; consistent</td><td>A generated regex that crashes on empty input.</td><td>Fairness</td></tr>
+              <tr><td><strong>Privacy &amp; Security</strong></td><td>Protect sensitive data and prevent unauthorized access.</td><td>protect data</td><td>Pasting an API token into a prompt.</td><td>Transparency</td></tr>
+              <tr><td><strong>Inclusiveness</strong></td><td>Support people with different abilities and backgrounds.</td><td>abilities/backgrounds</td><td>Generated UI that ignores screen-reader users.</td><td>Fairness</td></tr>
+              <tr><td><strong>Transparency</strong></td><td>Communicate AI use, behavior, and limitations.</td><td>communicate limits</td><td>Not disclosing that a section was AI-generated.</td><td>Accountability</td></tr>
+              <tr><td><strong>Accountability</strong></td><td>Humans remain responsible, monitor results, and address harm.</td><td>human responsible</td><td>A bug ships; the developer who merged it is answerable.</td><td>Transparency</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">Fairness is about <strong>equitable outcomes between groups</strong>; Inclusiveness is
+            about <strong>supporting different abilities and backgrounds</strong>. Transparency is
+            <strong>communicating AI use</strong>; Accountability is <strong>humans staying responsible</strong>.</div>
         </section>
 
-        <section id="ghi-chu-harms">
-          <h2><span class="kicker">Notes</span>Potential harms and mitigations</h2>
+        <section id="ghi-chu-rui-ro">
+          <h2><span class="kicker">Notes</span>Risks and limitations</h2>
+          <ul>
+            <li><strong>Hallucination</strong> — plausible but wrong output (a non-existent API, a false fact).</li>
+            <li><strong>Incorrect logic</strong> — code that parses but behaves wrongly.</li>
+            <li><strong>Insecure code</strong> — missing input validation, injection, weak cryptography.</li>
+            <li><strong>Insecure or unfamiliar dependency</strong> — a suggested package you don't know.</li>
+            <li><strong>Bias / unfair outcomes</strong> — ranking or recommendation logic that treats groups unfairly.</li>
+            <li><strong>Secret exposure</strong> — tokens/keys leaked into prompts or committed code.</li>
+            <li><strong>Missing context</strong> — the model lacks your project's domain knowledge.</li>
+            <li><strong>Public-code &amp; licensing</strong> — suggestions matching public code with license obligations.</li>
+            <li><strong>Over-reliance</strong> — trusting output without verification.</li>
+          </ul>
+        </section>
+
+        <section id="ghi-chu-giam-thieu">
+          <h2><span class="kicker">Notes</span>Risk → best mitigation</h2>
           <table>
-            <thead><tr><th>Potential harm</th><th>Mitigation</th></tr></thead>
+            <thead><tr><th>Risk</th><th>Best mitigation</th></tr></thead>
             <tbody>
-              <tr><td>Wrong logic / hallucination</td><td>Review line by line, run it, write unit tests</td></tr>
-              <tr><td>Security vulnerabilities</td><td>Code scanning, security tools, code review</td></tr>
-              <tr><td>Biased output</td><td>Awareness, diverse input, review context</td></tr>
-              <tr><td>Data / secret leakage</td><td>Content exclusions, never paste secrets into prompts</td></tr>
-              <tr><td>Matching public code</td><td>Enable "suggestions matching public code" filtering</td></tr>
+              <tr><td>Hallucinated API or fact</td><td>Verify against official documentation before use.</td></tr>
+              <tr><td>Incorrect logic</td><td>Compile, run, and test normal + boundary + negative cases.</td></tr>
+              <tr><td>Insecure code</td><td>Security review + static analysis (validate input, avoid injection).</td></tr>
+              <tr><td>Insecure / unfamiliar dependency</td><td>Check the package, its advisory history, and pin versions.</td></tr>
+              <tr><td>Bias or unfair outcomes</td><td>Review for fairness and test with diverse inputs.</td></tr>
+              <tr><td>Secret exposure</td><td>Never paste secrets; enable secret scanning.</td></tr>
+              <tr><td>Sensitive repository content</td><td>Content exclusions (repo / org / enterprise).</td></tr>
+              <tr><td>Public-code / licensing concern</td><td>Suggestions-matching-public-code filter + code references (license).</td></tr>
+              <tr><td>Missing project / domain context</td><td>Provide context: open files, @ attachments, instructions files.</td></tr>
+              <tr><td>Over-reliance on AI output</td><td>Human/code review + tests before production use.</td></tr>
             </tbody>
           </table>
         </section>
 
-        <section id="ghi-chu-validate">
-          <h2><span class="kicker">Notes</span>Validate and operate responsibly</h2>
-          <p>The golden rule: <strong>assess → test → confirm</strong>. Evaluate output as you would a colleague's code;
-            run tests and confirm correctness before relying on it.</p>
-          <div class="callout">Never paste secrets (tokens, API keys, passwords) into a prompt — Copilot uses the prompt
-            as context; and only let Copilot access the parts of a repo it actually needs.</div>
-          <p>Operating responsibly also means understanding your organization's policies, using content exclusions for
-            sensitive files, and remembering that Copilot does not replace human judgment.</p>
+        <section id="ghi-chu-xac-thuc">
+          <h2><span class="kicker">Notes</span>Validation workflow</h2>
+          <ol>
+            <li>Review the logic and underlying assumptions.</li>
+            <li>Verify unfamiliar APIs against official documentation.</li>
+            <li>Verify unfamiliar packages and dependencies.</li>
+            <li>Compile and run the code.</li>
+            <li>Test normal, boundary, negative, and error cases.</li>
+            <li>Run static analysis, dependency checks, and security scanning.</li>
+            <li>Require human/code review before production use.</li>
+          </ol>
         </section>
 
-        <section>
-          <h2><span class="kicker">Practice</span>Try it</h2>
-          <ul class="drills">
-            <li><b>1. Inspect a suggestion</b>Ask Copilot to write a function handling user input, then find the vulnerabilities yourself before using it.</li>
-            <li><b>2. Test before trust</b>Write and run unit tests for Copilot-generated code to confirm behavior.</li>
-            <li><b>3. Spot hallucination</b>Ask Copilot about an imaginary API and check whether it confidently invents one.</li>
-            <li><b>4. Protect secrets</b>Verify your prompts contain no tokens or keys before sending.</li>
+        <section id="ghi-chu-phan-biet">
+          <h2><span class="kicker">Notes</span>Controls and key distinctions</h2>
+          <p>Five controls you must tell apart:</p>
+          <ul>
+            <li><strong>Content exclusions</strong> — block what Copilot can read (repo / org / enterprise + REST API).</li>
+            <li><strong>Suggestions matching public code</strong> — a policy/filter on the output side; "Block" mode or code references.</li>
+            <li><strong>Code references</strong> — when a suggestion matches public code, Copilot shows the license + source URL.</li>
+            <li><strong>Editor settings</strong> — IDE-level toggles (inline suggestions, chat, exclusions in the client).</li>
+            <li><strong>Organization / enterprise policies</strong> — admin controls for feature availability and policy.</li>
+          </ul>
+          <p>Exam-critical distinctions:</p>
+          <ul>
+            <li>"Never paste a secret" is <em>not</em> the same as configuring content exclusions.</li>
+            <li>Content exclusion is <em>not</em> the public-code matching filter.</li>
+            <li>A syntactically valid suggestion is <em>not</em> necessarily correct or secure.</li>
+            <li>More generated tests do <em>not</em> guarantee useful test coverage.</li>
+            <li>Copilot output is a <em>proposal</em>, not verified evidence.</li>
+            <li>Human review and execution/testing are what provide evidence.</li>
+            <li>Copilot <em>assists</em>; humans remain <em>accountable</em>.</li>
+          </ul>
+        </section>
+
+        <section id="ghi-chu-bay">
+          <h2><span class="kicker">Notes</span>Exam traps</h2>
+          <ul>
+            <li>Prefer validation over automatic acceptance.</li>
+            <li>Prefer official documentation over trusting generated explanations.</li>
+            <li>Pick the mitigation that directly matches the stated risk.</li>
+            <li>Do not select content exclusions for every privacy scenario (public-code issues need the filter, not exclusions).</li>
+            <li>Do not assume generated tests are complete or correct.</li>
+            <li>Do not assume compiling successfully proves correctness or security.</li>
+            <li>Do not confuse ethical principles with product configuration controls.</li>
+          </ul>
+        </section>
+
+        <section id="ghi-chu-nguon">
+          <h2><span class="kicker">Sources</span>Official references</h2>
+          <ul>
+            <li>Microsoft Learn — Exam GH-300 study guide (skills measured as of August 7, 2026).</li>
+            <li>Microsoft Learn — "Responsible AI with GitHub Copilot" module.</li>
+            <li>GitHub Docs — responsible use of GitHub Copilot; public-code matching and code references; configuring content exclusion.</li>
           </ul>
         </section>
 
@@ -104,41 +176,39 @@
           <h2><span class="kicker">One page</span>Cheat sheet</h2>
           <div class="cheat-grid">
             <div>
-              <h3>Risks</h3>
+              <h3>Six principles</h3>
               <ul class="cheat-list">
-                <li>Hallucination</li>
-                <li>Insecure code</li>
-                <li>Bias</li>
-                <li>Copyright / public-code match</li>
+                <li>Fairness — equitable groups</li>
+                <li>Reliability &amp; Safety — safe, consistent</li>
+                <li>Privacy &amp; Security — protect data</li>
+                <li>Inclusiveness — abilities/backgrounds</li>
+                <li>Transparency — communicate limits</li>
+                <li>Accountability — human responsible</li>
               </ul>
             </div>
             <div>
-              <h3>Mitigations</h3>
+              <h3>Validation (7)</h3>
               <ul class="cheat-list">
-                <li>Review line by line</li>
-                <li>Write and run tests</li>
-                <li>Security scanning</li>
-                <li>Content exclusions</li>
-                <li>Public-code filter</li>
+                <li>Review logic</li>
+                <li>Verify APIs (docs)</li>
+                <li>Verify dependencies</li>
+                <li>Compile &amp; run</li>
+                <li>Test N / B / N / E</li>
+                <li>Static + security scan</li>
+                <li>Human review</li>
               </ul>
             </div>
             <div>
-              <h3>Golden rule</h3>
+              <h3>Controls</h3>
               <ul class="cheat-list">
-                <li>Assess → Test → Confirm</li>
-                <li>No secrets in prompts</li>
-                <li>You own the outcome</li>
+                <li>Content exclusions = input</li>
+                <li>Public-code filter = output</li>
+                <li>Code references = license + URL</li>
+                <li>Editor settings = client</li>
+                <li>Org policies = admin</li>
               </ul>
             </div>
           </div>
-        </section>
-
-        <section class="extend">
-          <h2><span class="kicker">Beyond the book</span>Exam tips <span class="tag">extra</span></h2>
-          <ul>
-            <li>"Which mitigation is best for X" questions — match each risk to its mitigation.</li>
-            <li>Remember assess/test/confirm as the standard answer for any "what should you do" scenario.</li>
-          </ul>
         </section>
 
         <div class="mark-read" style="margin-top:32px">
@@ -176,7 +246,5 @@
   <script src="../../assets/quiz.js"></script>
   <script src="../../assets/cards.js"></script>
   <script src="../../assets/pwa.js"></script>
-  <script src="../../assets/firebase-config.js"></script>
-  <script src="../../assets/sync.js"></script>
 </body>
 </html>

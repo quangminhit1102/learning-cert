@@ -104,10 +104,17 @@ library.forEach((entry) => {
       if (!q.id || !q.q || !q.explain) fail(qLabel + ": missing id, q or explain");
       if (seenIds.has(q.id)) fail(qLabel + ": duplicate global id");
       seenIds.add(q.id);
-      if (!["mcq", "fill", "fret"].includes(q.type)) fail(qLabel + ": invalid type");
+      if (!["mcq", "fill", "fret", "multi"].includes(q.type)) fail(qLabel + ": invalid type");
       if (q.type === "mcq") {
         if (!Array.isArray(q.options) || q.options.length < 2) fail(qLabel + ": invalid options");
         if (typeof q.answer !== "number" || q.answer < 0 || q.answer >= q.options.length) fail(qLabel + ": answer out of range of options");
+      }
+      if (q.type === "multi") {
+        if (!Array.isArray(q.options) || q.options.length < 2) fail(qLabel + ": invalid options");
+        if (!Array.isArray(q.answer) || q.answer.length === 0) fail(qLabel + ": multi answer must be an array");
+        else q.answer.forEach((idx) => {
+          if (typeof idx !== "number" || idx < 0 || idx >= q.options.length) fail(qLabel + ": multi answer index out of range");
+        });
       }
       if (q.type === "fill") {
         const answers = Array.isArray(q.answer) ? q.answer : [q.answer];

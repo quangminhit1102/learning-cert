@@ -39,6 +39,11 @@
       const actual = (answer || []).map((pair) => pair[0] + ":" + pair[1]).sort().join("|");
       return expected === actual;
     }
+    if (question.type === "multi") {
+      const expected = question.answer.slice().sort().join(",");
+      const actual = (answer || []).slice().sort().join(",");
+      return expected === actual;
+    }
     return false;
   }
 
@@ -105,6 +110,46 @@
     host.appendChild(wrap);
   }
 
+  function renderMulti(question) {
+    const wrap = document.createElement("div");
+    wrap.innerHTML = '<p class="q-text">' + question.q + '</p><div class="read-note" style="margin:0 0 10px">Select all that apply.</div>';
+    const opts = document.createElement("div");
+    opts.className = "opts";
+    const selected = new Set();
+    question.options.forEach((option, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "opt";
+      btn.innerHTML = '<span class="key">' + (i + 1) + "</span><span>" + option + "</span>";
+      btn.addEventListener("click", () => {
+        if (answered) return;
+        if (selected.has(i)) { selected.delete(i); btn.classList.remove("selected"); }
+        else { selected.add(i); btn.classList.add("selected"); }
+      });
+      opts.appendChild(btn);
+    });
+    wrap.appendChild(opts);
+    const checkRow = document.createElement("div");
+    checkRow.className = "quiz-foot";
+    checkRow.innerHTML = '<span class="spacer"></span><button class="btn primary" type="button" id="q-check">Check</button>';
+    wrap.appendChild(checkRow);
+    host.innerHTML = progressBar();
+    host.appendChild(wrap);
+    document.getElementById("q-check").addEventListener("click", () => {
+      const chosen = Array.from(selected);
+      const correct = isCorrect(question, chosen);
+      const expected = question.answer.slice();
+      Array.from(opts.children).forEach((node, i) => {
+        const isSel = selected.has(i);
+        const isExp = expected.indexOf(i) !== -1;
+        if (isExp) node.classList.add("correct");
+        else if (isSel) node.classList.add("wrong");
+        node.disabled = true;
+      });
+      markAnswer(correct);
+    });
+  }
+
   function renderFill(question) {
     const wrap = document.createElement("div");
     wrap.innerHTML = '<p class="q-text">' + question.q + "</p>" +
@@ -152,6 +197,7 @@
     if (meta) meta.textContent = "Q" + (index + 1) + "/" + questions.length;
     if (question.type === "fill") renderFill(question);
     else if (question.type === "fret") renderFret(question);
+    else if (question.type === "multi") renderMulti(question);
     else renderMcq(question);
 
     const foot = document.createElement("div");

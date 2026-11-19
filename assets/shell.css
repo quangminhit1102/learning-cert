@@ -1155,3 +1155,5 @@ body.has-tabbar .account-fab { bottom: calc(76px + env(safe-area-inset-bottom));
 @media (max-width: 767px) {
   .account-fab { display: none; }
 }
+
+.opt.selected { border-color: var(--info); background: color-mix(in srgb, var(--info) 14%, var(--bg-soft)); }

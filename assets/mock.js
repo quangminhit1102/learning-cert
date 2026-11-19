@@ -55,6 +55,11 @@
       const accepted = Array.isArray(q.answer) ? q.answer : [q.answer];
       return accepted.some((a) => normalize(a) === normalize(answer));
     }
+    if (q.type === "multi") {
+      const expected = q.answer.slice().sort().join(",");
+      const actual = (answer || []).slice().sort().join(",");
+      return expected === actual;
+    }
     return answer === q.answer;
   }
 
@@ -94,7 +99,7 @@
       '<div class="wrong-list">' + deck.map((item, i) => {
         const q = item.question;
         return '<details><summary><span class="w-num">' + (i + 1) + "</span> " + q.q + "</summary>" +
-          '<div class="feedback no"><strong>' + (q.type === "mcq" ? q.options[q.answer] : (Array.isArray(q.answer) ? q.answer[0] : q.answer)) + "</strong> · " + q.explain + "</div></details>";
+          '<div class="feedback no"><strong>' + (q.type === "mcq" ? q.options[q.answer] : q.type === "multi" ? q.answer.map((idx) => q.options[idx]).join(" · ") : (Array.isArray(q.answer) ? q.answer[0] : q.answer)) + "</strong> · " + q.explain + "</div></details>";
       }).join("") + "</div>";
     document.getElementById("wrong-retry").addEventListener("click", () => {
       index = 0;
@@ -119,6 +124,11 @@
     if (q.type === "mcq") {
       html += '<div class="opts">' + q.options.map((opt, i) =>
         '<button type="button" class="opt" data-i="' + i + '"><span class="key">' + (i + 1) + "</span><span>" + opt + "</span></button>").join("") + "</div>";
+    } else if (q.type === "multi") {
+      html += '<div class="read-note" style="margin:0 0 10px">Select all that apply.</div>' +
+        '<div class="opts">' + q.options.map((opt, i) =>
+          '<button type="button" class="opt" data-i="' + i + '"><span class="key">' + (i + 1) + "</span><span>" + opt + "</span></button>").join("") + "</div>" +
+        '<div class="quiz-foot"><span class="spacer"></span><button class="btn primary" type="button" id="q-check">Check</button></div>';
     } else {
       html += '<div class="fill-row"><input id="q-fill" type="text" autocomplete="off" spellcheck="false" placeholder="Type answer..."><button class="btn primary" type="button" id="q-check">Check</button></div>';
     }
@@ -127,20 +137,46 @@
     host.innerHTML = html;
 
     const opts = host.querySelectorAll(".opt");
-    opts.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        if (answered) return;
-        const i = Number(btn.dataset.i);
-        const correct = isCorrect(q, i);
-        if (correct) btn.classList.add("correct");
-        else {
-          btn.classList.add("wrong");
-          opts[q.answer].classList.add("correct");
-        }
-        opts.forEach((node) => { node.disabled = true; });
+    if (q.type === "multi") {
+      const selected = new Set();
+      opts.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          const i = Number(btn.dataset.i);
+          if (selected.has(i)) { selected.delete(i); btn.classList.remove("selected"); }
+          else { selected.add(i); btn.classList.add("selected"); }
+        });
+      });
+      const check = document.getElementById("q-check");
+      check.addEventListener("click", () => {
+        const chosen = Array.from(selected);
+        const correct = isCorrect(q, chosen);
+        const expected = q.answer.slice();
+        opts.forEach((node, i) => {
+          const isSel = selected.has(i);
+          const isExp = expected.indexOf(i) !== -1;
+          if (isExp) node.classList.add("correct");
+          else if (isSel) node.classList.add("wrong");
+          node.disabled = true;
+        });
         markAnswer(correct, q);
       });
-    });
+    } else {
+      opts.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          const i = Number(btn.dataset.i);
+          const correct = isCorrect(q, i);
+          if (correct) btn.classList.add("correct");
+          else {
+            btn.classList.add("wrong");
+            opts[q.answer].classList.add("correct");
+          }
+          opts.forEach((node) => { node.disabled = true; });
+          markAnswer(correct, q);
+        });
+      });
+    }
 
     const fillInput = document.getElementById("q-fill");
     if (fillInput) {
